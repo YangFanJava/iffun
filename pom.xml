@@ -57,11 +57,11 @@
             <!--<groupId>org.springframework.boot</groupId>-->
             <!--<artifactId>spring-boot-starter-velocity</artifactId>-->
         <!--</dependency>-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-velocity</artifactId>
-            <version>1.4.7.RELEASE</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-velocity</artifactId>-->
+            <!--<version>1.4.7.RELEASE</version>-->
+        <!--</dependency>-->
 
 
         <!-- Spring Boot JDBC  与数据库操作相关的依赖 -->

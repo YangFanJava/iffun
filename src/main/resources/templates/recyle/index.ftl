@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="https://unpkg.com/mint-ui/lib/style.css">
 </head>
 <body>
-hello word!
 <div id="app">
     <mt-button @click.native="handleClick">按钮</mt-button>
 </div>
@@ -23,7 +22,10 @@ hello word!
         el: '#app',
         methods: {
             handleClick: function() {
-                this.$toast('Hello world!')
+                this.$toast('${test1}')
+                <#--this.$toast('${test2}')-->
+                <#--this.$toast('${test3}')-->
+                <#--this.$toast('${test4}')-->
             }
         }
     })
