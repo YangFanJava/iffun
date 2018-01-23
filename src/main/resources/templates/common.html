@@ -1,0 +1,29 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="header">
+    <meta charset="UTF-8"/>
+    <title th:text="${title}"></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <script th:src="@{/js/backend/js/jquery.min.js}"></script>
+    <script th:src="@{/js/backend/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/backend/js/common.js}"></script>
+    <script th:src="@{/js/backend/js/browser.js}"></script>
+    <script th:src="@{/js/backend/js/jquery.ba-hashchange.min.js}"></script>
+    <script th:src="@{/js/backend/js/masterslider.js}"></script>
+    <script th:src="@{/js/layer/layer.js}"></script>
+    <script th:src="@{/js/layer/extend/layer.ext.js}"></script>
+    <script th:src="@{/js/laypage-v1.3/laypage/laypage.js}"></script>
+    <script th:src="@{/js/My97DatePicker/WdatePicker.js}"></script>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var contextRoot = /*[[@{/}]]*/ '';
+        /*]]>*/
+    </script>
+    <link rel="stylesheet" th:href="@{/js/backend/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/js/backend/css/common.css}"/>
+    <link rel="stylesheet" th:href="@{/js/backend/css/unify.css}"/>
+    <link rel="stylesheet" th:href="@{/js/backend/css/global.css}"/>
+    <link rel="stylesheet" th:href="@{/js/backend/css/btn.css}"/>
+    <link rel="stylesheet" th:href="@{/js/My97DatePicker/skin/WdatePicker.css}"/>
+    <link rel="icon" th:href="@{/js/backend/images/favicon.ico}" type="image/x-icon" />
+</head>
+</html>

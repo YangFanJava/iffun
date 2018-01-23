@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head th:include="common :: header" th:with="title='单机编标系统'">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+</head>
+<link rel="stylesheet" th:href="@{/css/webuploader/webuploader.css}"/>
+<link rel="stylesheet" th:href="@{/css/webuploader/uploadView.css}"/>
+<script type="text/javascript" th:src="@{/js/index/index.js}"></script>
+<script type="text/javascript" th:src="@{/js/webuploader/webuploader.js}"></script>
+<script type="text/javascript" th:src="@{/js/webuploader/upload.js}"></script>
+<body>
+<!--面包屑导航开始-->
+<div class="margin-top-10 breadcrumbs">
+    <div class="container">
+        <ul class="breadcrumb margin-left-0">
+            <li>
+                <a href="javascript:void(0)">供应商在线投标</a>
+            </li>
+        </ul>
+        <div class="clear"></div>
+    </div>
+</div>
+<div class="container">
+    <div class="headline-v2">
+        <h2>采购项目管理</h2>
+    </div>
+    <!-- 项目戳开始 -->
+    <h2 class="search_detail">
+        <ul class="demand_list">
+            <li>
+                <label class="fl">
+                    <span>项目名称：</span>
+                    <input type="text" name="name" id="name" value=""/>
+                </label>
+            </li>
+            <li>
+                <label class="fl"><span>项目编号：</span>
+                    <input type="text" name="projectNumber" id="projectNumber" value=""/>
+                </label>
+            </li>
+            <li>
+                <button class="fl btn mb0" type="submit" onclick="queryByCond()">查询</button>
+                <button type="reset" class="fl btn mb0 mr0" onclick="resetAll()">重置</button>
+            </li>
+        </ul>
+    </h2>
+    <div class="col-md-12 pl20 mt10">
+        <!--<form id="picForm" method="post" enctype="multipart/form-data">
+            <input id="fileWord" name="fileWord" type="file" value="浏览..."/>
+        </form>
+        <button id="importPurchaseFile" class="btn">开始上传</button>-->
+        <!--用来存放文件信息-->
+        <div id="picker">选择文件</div>
+        <div id="thelist"></div>
+        <button id="ctlBtn" class="btn">开始上传</button>
+    </div>
+
+
+    <div class="content table_box">
+        <table class="table table-bordered table-condensed table-hover table-striped">
+            <thead>
+            <tr>
+                <th class="w50">序号</th>
+                <th width="40%">项目名称</th>
+                <th width="35%">项目编号</th>
+                <th width="20%">修改时间</th>
+            </tr>
+            </thead>
+            <tbody id="tbody_id">
+            </tbody>
+        </table>
+    </div>
+    <div id="pagediv" align="right"></div>
+</div>
+<!--<a th:href="@{/sync/back.do}">点击</a>
+<a th:href="@{/sync/restore.do}">点击</a>-->
+</body>
+</html>

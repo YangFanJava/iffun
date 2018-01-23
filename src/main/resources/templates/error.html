@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head th:include="common :: header" th:with="title='供应商在线投标平台'">
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <meta name="description" content="Bootstrap Admin App + jQuery"/>
+    <meta name="keywords" content="app, responsive, jquery, bootstrap, dashboard, admin"/>
+</head>
+<body>
+<style>
+    body, html {
+        height: 100%;
+    }
+
+    .wrapper {
+        background-color: #50677f;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-line-pack: center;
+        align-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        height: 100%;
+    }
+
+    .content-error {
+        color: #fff;
+        text-align: center;
+        width:100%;
+    }
+</style>
+<div class="wrapper">
+    <div class="content-error">
+        <p>
+            <img th:src="@{/img/cloud-error.png}" alt=""/></p>
+        <p class="h3">您访问的内容有错！请联系管理员</p>
+        <p>
+            <a th:href="@{/}">返回首页</a>
+            <a href="javascript:history.back(-1)">返回上一步</a>
+        </p>
+    </div>
+</div>
+</body>
+</html>

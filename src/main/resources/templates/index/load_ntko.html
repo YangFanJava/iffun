@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head th:include="common :: header" th:with="title='供应商在线投标平台'">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+</head>
+<script type="text/javascript" th:src="@{/js/ntko/ntkoofficecontrol.js}"></script>
+<script type="text/javascript" th:src="@{/js/ntko/OfficeContorlFunctions.js}"></script>
+<script type="text/javascript">
+    $(function () {
+        var fname = $("#fname").val();
+        var name = encodeURIComponent(fname);
+        intializePage(name);
+    })
+</script>
+<body>
+<div style="width: 0px;height: 0px;">
+    <!--封装数据表单-->
+    <form id="dataForm">
+        <!--附件名称-->
+        <input type="hidden" name="attachName" id="fname" th:value="${tAttachment.name}"/>
+        <!--附件路径-->
+        <input type="hidden" name="attachFile" id="fpath" th:value="${tAttachment.path}"/>
+
+        <!--项目名称-->
+        <input type="hidden" name="project.name" id="pname" value=""/>
+        <!--项目编号-->
+        <input type="hidden" name="project.pno" id="pno" value=""/>
+    </form>
+</div>
+</body>
+</html>

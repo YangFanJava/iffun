@@ -1,0 +1,214 @@
+.filelist {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.filelist:after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    clear: both;
+}
+.filelist div {
+    width: 600px;
+    height: 500px;
+    background: url(./bg.png) no-repeat;
+    text-align: center;
+    margin: 0 8px 20px 0;
+    position: relative;
+    display: inline;
+    float: left;
+    overflow: hidden;
+    font-size: 12px;
+}
+.filelist div div.imgWrap {
+    position: relative;
+    z-index: 2;
+    line-height: 110px;
+    vertical-align: middle;
+    overflow: hidden;
+    width: 600px;
+    height: 500px;
+
+    -webkit-transform-origin: 50% 50%;
+    -moz-transform-origin: 50% 50%;
+    -o-transform-origin: 50% 50%;
+    -ms-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+
+    -webit-transition: 200ms ease-out;
+    -moz-transition: 200ms ease-out;
+    -o-transition: 200ms ease-out;
+    -ms-transition: 200ms ease-out;
+    transition: 200ms ease-out;
+}
+.filelist div img {
+    width: 100%;
+    height: 100%;
+}
+.filelist div.file-panel {
+    position: absolute;
+    height: 0;
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#80000000', endColorstr='#80000000')\0;
+    background: rgba( 0, 0, 0, 0.5 );
+    width: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: 300;
+}
+.filelist div.file-panel span {
+    width: 24px;
+    height: 24px;
+    display: inline;
+    float: right;
+    text-indent: -9999px;
+    overflow: hidden;
+    background: url(./icons.png) no-repeat;
+    margin: 5px 1px 1px;
+    cursor: pointer;
+}
+
+.filelist div.file-panel span.rotateLeft {
+    background-position: 0 -24px;
+}
+.filelist div.file-panel span.rotateLeft:hover {
+    background-position: 0 0;
+}
+
+.filelist div.file-panel span.rotateRight {
+    background-position: -24px -24px;
+}
+.filelist div.file-panel span.rotateRight:hover {
+    background-position: -24px 0;
+}
+
+.filelist div.file-panel span.uploadCancel {
+    background-position: -48px -24px;
+}
+.filelist div.file-panel span.uploadCancel:hover {
+    background-position: -48px 0;
+}
+.imgWrap {
+    position: relative;
+    z-index: 2;
+    line-height: 110px;
+    vertical-align: middle;
+    overflow: hidden;
+    width: 110px;
+    height: 110px;
+
+    -webkit-transform-origin: 50% 50%;
+    -moz-transform-origin: 50% 50%;
+    -o-transform-origin: 50% 50%;
+    -ms-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+
+    -webit-transition: 200ms ease-out;
+    -moz-transition: 200ms ease-out;
+    -o-transition: 200ms ease-out;
+    -ms-transition: 200ms ease-out;
+    transition: 200ms ease-out;
+}
+li{
+	list-style-type:none;
+}
+.uploadFiles li{
+	float:left;
+	margin-left:3px;
+	line-height:25px;
+	border-bottom:0px;
+	height:25px;
+}
+.uploadFiles li a{
+	color:#2c9fa6;
+	padding-left:20px;
+}
+.uploadFiles li.file_view{
+		background:url(./view.png) no-repeat 5px;
+}
+.uploadFiles li.file_load{
+		background:url(./download.png) no-repeat 5px;
+}
+.uploadFiles li.file_delete{
+		background:url(./delete.png) no-repeat 5px;
+}
+
+.progress {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    height: 8px;
+    overflow: hidden;
+    z-index: 50;
+}
+
+.progress span {
+    display: inline-block;
+    overflow: hidden;
+    width: 0;
+    height: 100%;
+    background: #2c9fa6 url(./progress.png) repeat-x;
+
+    -webit-transition: width 200ms linear;
+    -moz-transition: width 200ms linear;
+    -o-transition: width 200ms linear;
+    -ms-transition: width 200ms linear;
+    transition: width 200ms linear;
+
+    -webkit-animation: progressmove 2s linear infinite;
+    -moz-animation: progressmove 2s linear infinite;
+    -o-animation: progressmove 2s linear infinite;
+    -ms-animation: progressmove 2s linear infinite;
+    animation: progressmove 2s linear infinite;
+
+    -webkit-transform: translateZ(0);
+}
+
+.statusBar .progress {
+    border: 1px solid #2c9fa6;
+    width: 198px;
+    background: #fff;
+    height: 18px;
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    line-height: 20px;
+    color: #fff;
+    position: relative;
+    margin-right: 0 10px 0 0;
+}
+
+.statusBar .progress span.percentage {
+    width: 0;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: #2c9fa6;
+    position: absolute;
+}
+
+.statusBar .progress span.text {
+    position: relative;
+    z-index: 10;
+}
+
+.statusBar .info {
+    display: inline-block;
+    font-size: 12px;
+    color: #666666;
+}
+
+.layui-layer-pic{
+	border: 6px solid #8D8D8D;
+    border: 6px solid rgba(0,0,0,.3);
+    border-radius: 5px;
+    box-shadow: none;
+}
+
+.layui-layer-pic .layui-layer-content{
+	background-color: #ccc;
+}

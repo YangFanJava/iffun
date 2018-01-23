@@ -1,0 +1,113 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="detail/nav">
+<body onload="intializePage()">
+<div th:fragment="content">
+    <!--封装数据表单-->
+    <div class="container">
+        <div class="headline-v2">
+            <h2>绑定指标</h2>
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12 md-margin-bottom-40 mt10 div-center">
+            <!-- Begin Content -->
+            <div class="col-md-3 col-sm-4 col-xs-12 md-margin-bottom-40">
+                <div class="tag-box tag-box-v3" style="overflow: auto; height: 570px;">
+                    <div th:each="pack : ${packages}">
+                        <span th:text="'包号：'+ ${pack.name}"></span>
+                        <div th:each="econTech : ${pack.tEconTecheList}">
+                            <div th:if="${econTech.type == 1}">
+                                <a>评审类型：经济评审</a>
+                                <span th:if="${econTech.markTermList != null}">
+                                <div width="100%" th:each="mark : ${econTech.markTermList}">
+                                    <span style="color: red" th:text="${mark.name}"></span>
+                                    <table width="100%" th:if="${mark.markTermListChild != null}">
+                                        <tr th:each="norm : ${mark.markTermListChild}">
+                                            <td>
+                                               <span th:alt-title="${norm.smname}"
+                                                     th:text="${#strings.length(norm.smname) > 5}?${#strings.substring(norm.smname,0,3) + '...'}:${norm.smname}"></span>
+                                            </td>
+                                            <td>
+                                                <input th:style="${norm.isBind==0}? 'display:block':'display:none'" th:type="button" class="btn fr"
+                                                       th:onclick="'bind(\''+ ${norm.id} + '\',this,\'' +${pack.name}+ '\', \''+${norm.smname}+'\')'" th:value="绑定指标"/>
+                                                <div class="shanchu light_icon"
+                                                     th:style="${norm.isBind==1}? 'display:block':'display:none'"><a
+                                                        href="javascript:;"
+                                                        th:onclick="'del(\''+ ${norm.id} + '\',this,\'' +${pack.name}+ '\', \''+${norm.smname}+'\')'">删除</a></div>
+                                                <div class="dinwei light_icon"
+                                                     th:style="${norm.isBind==1}? 'display:block':'display:none'"><a
+                                                        href="javascript:;"
+                                                        th:onclick="'local(\''+ ${norm.id} + '\',this,\'' +${pack.name}+ '\', \''+${norm.smname}+'\')'">定位</a></div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </span>
+                            </div>
+                            <div th:if="${econTech.type == 2}">
+                                <a>评审类型：技术评审</a>
+                                <span th:if="${econTech.markTermList != null}">
+                                <div width="100%" th:each="mark : ${econTech.markTermList}">
+                                    <span style="color: red" th:text="${mark.name}"></span>
+                                    <table width="100%" th:if="${mark.markTermListChild != null}">
+                                        <tr th:each="norm : ${mark.markTermListChild}">
+                                            <td>
+                                               <span th:alt-title="${norm.smname}"
+                                                     th:text="${#strings.length(norm.smname) > 5}?${#strings.substring(norm.smname,0,3) + '...'}:${norm.smname}"></span>
+                                            </td>
+                                            <td>
+                                                <input th:style="${norm.isBind==0}? 'display:block':'display:none'" th:type="button" class="btn fr"
+                                                       th:onclick="'bind(\''+ ${norm.id} + '\',this,\'' +${pack.name}+ '\', \''+${norm.smname}+'\')'" th:value="绑定指标"/>
+                                                <div class="shanchu light_icon"
+                                                     th:style="${norm.isBind==1}? 'display:block':'display:none'"><a
+                                                        href="javascript:;"
+                                                        th:onclick="'del(\''+ ${norm.id} + '\',this,\'' +${pack.name}+ '\', \''+${norm.smname}+'\')'">删除</a></div>
+                                                <div class="dinwei light_icon"
+                                                     th:style="${norm.isBind==1}? 'display:block':'display:none'"><a
+                                                        href="javascript:;"
+                                                        th:onclick="'local(\''+ ${norm.id} + '\',this,\'' +${pack.name}+ '\', \''+${norm.smname}+'\')'">定位</a></div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </span>
+                            </div>
+                        </div>
+
+                        <!--<ul class="light_box">
+                            <li>
+                                <span class="light_desc">法人代表...</span>
+                                <div class="shanchu light_icon"><a href="">删除</a></div>
+                                <div class="dinwei light_icon"><a href="">定位</a></div>
+                            </li>
+                        </ul>-->
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-9 col-sm-4 col-xs-12 md-margin-bottom-40 mt10">
+                <form id="MyFile" method="post" class="mb0">
+                    <!--设置第二步-->
+                    <input th:type="hidden" th:id="filePath" th:value="${attachment.path}"/>
+                    <input th:type="hidden" th:id="fileName" th:value="${attachment.name}"/>
+                    <input th:id="projectId" th:name="projectId" th:type="hidden" th:value="${project.id}"/>
+                    <input th:id="suppliername" th:type="hidden" th:value="${project.suppliername}"/>
+                    <input th:id="projectNumber" th:type="hidden" th:value="${project.projectNumber}"/>
+                    <input th:name="id" th:type="hidden" th:value="${project.id}"/>
+                    <input th:name="navNo" th:id="navNo" th:type="hidden" th:value="${project.navNo}"/>
+                    <input th:name="flag" th:id="flag" th:type="hidden"/>
+                    <input th:name="bidFlag" th:id="bidFlag" value="1" th:type="hidden"/>
+                </form>
+                <script type="text/javascript" th:src="@{/js/openbid/bid_tender.js}"></script>
+                <script type="text/javascript" th:src="@{/js/ntko/ntkoofficecontrol.js}"></script>
+                <script type="text/javascript" th:src="@{/js/ntko/bind_tender.js}"></script>
+            </div>
+        </div>
+        <div class="col-md-12 clear tc mt10">
+            <button class="btn" type="button" id="lastStep">上一步</button>
+            <button class="btn" type="button" id="isTemporary">暂存</button>
+            <button class="btn" type="button" id="nextStep">下一步</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

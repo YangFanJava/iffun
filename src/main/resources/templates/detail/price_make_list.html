@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="detail/nav">
+<body>
+<div th:fragment="content" th:remove="tag">
+    <script th:src="@{/js/openbid/price_make_list.js}"></script>
+    <script th:src="@{/js/openbid/common.js}"></script>
+    <!--开标一览表-->
+    <div class="container">
+        <div class="headline-v2">
+            <h2>价格构成表</h2>
+        </div>
+        <div class="content table_box">
+            <h2 class="count_flow"><i>1</i>基本信息</h2>
+            <table class="table table-bordered mt10">
+                <tbody>
+                <tr>
+                    <td class="info div-center">项目名称:</td>
+                    <td class="p0"><span th:text="${project.name}"></span></td>
+                    <td class="bggrey div-center">项目编号：</td>
+                    <td class="p0"><span th:text="${project.projectNumber}"></span></td>
+                </tr>
+                <tr>
+                    <td class="bggrey div-center">金额单位:</td>
+                    <td class="p0">元</td>
+                    <td class="info div-center"></td>
+                    <td class="p0"><span></span></td>
+                </tr>
+                </tbody>
+            </table>
+            <h2 class="count_flow"><i>2</i>项目明细</h2>
+            <span class="f14 red">表格说明：单价=所填写各项费用之和，总价=单价×数量，货物总金额=总价之和</span>
+            <form id="myForm" class="mb0">
+                <!--设置第二步-->
+                <input th:id="projectId" th:name="projectId" th:type="hidden" th:value="${project.id}"/>
+                <input th:name="project.id" th:type="hidden" th:value="${project.id}"/>
+                <input th:name="project.navNo" th:id="navNo" th:type="hidden" th:value="${project.navNo}"/>
+                <input th:name="flag" th:id="flag" th:type="hidden"/>
+                <input th:type="hidden" id="packNo" th:value="${listByProjectId.size() - 1}"/>
+                <div th:each="pack : ${listByProjectId}">
+                    <div class="count_flow shrink hand" th:onclick="${'showDiv(this,' + packStat.index + ')'}">
+                        <span class="f16 b">包名：</span>
+                        <span class="f14 blue" th:text="${pack.name}"></span>
+                    </div>
+                    <div th:class="${'p0' + packStat.index + ' hide'}">
+                        <table class="table table-bordered left_table">
+                            <thead>
+                            <tr>
+                                <td class="info w50" rowspan="2">序号</td>
+                                <td class="info" rowspan="2">货物名称</td>
+                                <td class="info" rowspan="2">规格型号</td>
+                                <td class="info" rowspan="2">计量单位</td>
+                                <td class="info" rowspan="2">数量</td>
+                                <td class="info" rowspan="2">总价</td>
+                                <td class="info tc" colspan="13">价格组成</td>
+                                <td class="info" rowspan="2">操作</td>
+                            </tr>
+                            <tr>
+                                <td class="info">单价</td>
+                                <td class="info">直接材料费</td>
+                                <td class="info">外购成件费</td>
+                                <td class="info">燃料及动力费</td>
+                                <td class="info">直接人工费</td>
+
+                                <td class="info">废品损失费</td>
+                                <td class="info">管理费用</td>
+                                <td class="info">利润</td>
+                                <td class="info">税金</td>
+
+                                <td class="info">备件工具费</td>
+                                <td class="info">安装调试费</td>
+                                <td class="info">技术服务费</td>
+                                <td class="info">运杂费</td>
+                            </tr>
+                            </thead>
+                            <tbody th:attr="data-package=${pack.name}" th:id="${'bidtable' + packStat.index}">
+                            <tr class="isparent" th:each="detail : ${pack.projectDetails}">
+                                <input th:class="${detail.id}" th:type="hidden"
+                                       th:name="${'details['+ pack.id +'].list[' + detailStat.index + '].id'}"
+                                       th:value="${detail.id}"/>
+                                <input th:type="hidden"
+                                       th:name="${'details['+ pack.id +'].list[' + detailStat.index + '].packageId'}"
+                                       th:value="${detail.packageId}"/>
+                                <input th:type="hidden"
+                                       th:name="${'details['+ pack.id +'].list[' + detailStat.index + '].isParent'}"
+                                       th:value="${detail.isParent}"/>
+                                <td class="info div-center" th:text="${detailStat.index + 1}"></td>
+                                <td><input th:type="text" class="mb0 border0"
+                                           th:title="${detail.pname}"
+                                           th:name="${'details['+ pack.id +'].list[' + detailStat.index + '].pname'}"
+                                           readonly="readonly"
+                                           th:value="${detail.pname}"/></td>
+                                <td class="p0"><input th:type="text" th:title="${detail.sizeNo}" class="mb0 border0"
+                                                      readonly="readonly"
+                                                      th:name="${'details['+ pack.id +'].list[' + detailStat.index + '].sizeNo'}"
+                                                      th:value="${detail.sizeNo}"/></td>
+                                <td class="p0"><input th:type="text" class="mb0 border0"
+                                                      readonly="readonly"
+                                                      th:name="${'details['+ pack.id +'].list[' + detailStat.index + '].item'}"
+                                                      th:value="${detail.item}"/></td>
+
+                                <td class="p0"><input th:type="text" class="mb0 border0"
+                                                      readonly="readonly"
+                                                      th:name="${'details['+ pack.id +'].list[' + detailStat.index + '].purchaseCount'}"
+                                                      th:value="${detail.purchaseCount}"/></td>
+                                <td class="p0"><input th:type="text" class="mb0 border0"
+                                                      th:name="${'details['+ pack.id +'].list[' + detailStat.index + '].totalPrice'}"
+                                                      th:title="${detail.totalPrice == null}? '': ${#numbers.formatDecimal(detail.totalPrice, 1, 2)}"
+                                                      readonly="readonly"
+                                                      th:value="${detail.totalPrice == null}? '': ${#numbers.formatDecimal(detail.totalPrice, 1, 2)}"/></td>
+                                <td class="p0"><input th:type="text" class="mb0 border0"
+                                                      th:name="${'details['+ pack.id +'].list[' + detailStat.index + '].unitPrice'}"
+                                                      th:title="${detail.unitPrice == null}? '': ${#numbers.formatDecimal(detail.unitPrice, 1, 2)}"
+                                                      readonly="readonly"
+                                                      th:value="${detail.unitPrice == null}? '': ${#numbers.formatDecimal(detail.unitPrice, 1, 2)}"/></td>
+                                <td class="p0"><input th:type="text" class="mb0 border0"
+                                                      th:name="${'details['+ pack.id +'].list[' + detailStat.index + '].materialFee'}"
+                                                      th:value="${detail.materialFee}"
+                                                      th:readonly="${#lists.size(detail.projectDetaitChildList) == 0}? 'false':'true'"
+                                                      th:onkeyup="${'caculate(this,' + packStat.index + ')'}"/>
+                                </td>
+                                <td class="p0"><input th:type="text" class="mb0 border0"
+                                                      th:readonly="${#lists.size(detail.projectDetaitChildList) == 0}? 'false':'true'"
+                                                      th:name="${'details['+ pack.id +'].list[' + detailStat.index + '].outsourcingFee'}"
+                                                      th:value="${detail.outsourcingFee}"
+                                                      th:onkeyup="${'caculate(this,' + packStat.index + ')'}"/>
+                                </td>
+                                <td class="p0"><input th:type="text" class="mb0 border0"
+                                                      th:readonly="${#lists.size(detail.projectDetaitChildList) == 0}? 'false':'true'"
+                                                      th:name="${'details['+ pack.id +'].list[' + detailStat.index + '].makefFee'}"
+                                                      th:value="${detail.makefFee}"
+                                                      th:onkeyup="${'caculate(this,' + packStat.index + ')'}"/>
+                                </td>
+                                <td class="p0"><input th:type="text" class="mb0 border0"
+                                                      th:readonly="${#lists.size(detail.projectDetaitChildList) == 0}? 'false':'true'"
+                                                      th:name="${'details['+ pack.id +'].list[' + detailStat.index + '].fuelFee'}"
+                                                      th:value="${detail.fuelFee}"
+                                                      th:onkeyup="${'caculate(this,' + packStat.index + ')'}"/>
+                                </td>
+                                <td class="p0"><input th:type="text" class="mb0 border0"
+                                                      th:readonly="${#lists.size(detail.projectDetaitChildList) == 0}? 'false':'true'"
+                                                      th:name="${'details['+ pack.id +'].list[' + detailStat.index + '].discardFee'}"
+                                                      th:value="${detail.discardFee}"
+                                                      th:onkeyup="${'caculate(this,' + packStat.index + ')'}"/>
+                                </td>
+                                <td class="p0"><input th:type="text" class="mb0 border0"
+                                                      th:readonly="${#lists.size(detail.projectDetaitChildList) == 0}? 'false':'true'"
+                                                      th:name="${'details['+ pack.id +'].list[' + detailStat.index + '].manageFee'}"
+                                                      th:value="${detail.manageFee}"
+                                                      th:onkeyup="${'caculate(this,' + packStat.index + ')'}"/>
+                                </td>
+                                <td class="p0"><input th:type="text" class="mb0 border0"
+                                                      th:readonly="${#lists.size(detail.projectDetaitChildList) == 0}? 'false':'true'"
+                                                      th:name="${'details['+ pack.id +'].list[' + detailStat.index + '].profit'}"
+                                                      th:value="${detail.profit}"
+                                                      th:onkeyup="${'caculate(this,' + packStat.index + ')'}"/>
+                                </td>
+                                <td class="p0"><input th:type="text" class="mb0 border0"
+                                                      th:readonly="${#lists.size(detail.projectDetaitChildList) == 0}? 'false':'true'"
+                                                      th:name="${'details['+ pack.id +'].list[' + detailStat.index + '].taxes'}"
+                                                      th:value="${detail.taxes}"
+                                                      th:onkeyup="${'caculate(this,' + packStat.index + ')'}"/>
+                                </td>
+                                <td class="p0"><input th:type="text" class="mb0 border0"
+                                                      th:readonly="${#lists.size(detail.projectDetaitChildList) == 0}? 'false':'true'"
+                                                      th:name="${'details['+ pack.id +'].list[' + detailStat.index + '].repairsFee'}"
+                                                      th:value="${detail.repairsFee}"
+                                                      th:onkeyup="${'caculate(this,' + packStat.index + ')'}"/>
+                                </td>
+                                <td class="p0"><input th:type="text" class="mb0 border0"
+                                                      th:readonly="${#lists.size(detail.projectDetaitChildList) == 0}? 'false':'true'"
+                                                      th:name="${'details['+ pack.id +'].list[' + detailStat.index + '].installFee'}"
+                                                      th:value="${detail.installFee}"
+                                                      th:onkeyup="${'caculate(this,' + packStat.index + ')'}"/>
+                                </td>
+                                <td class="p0"><input th:type="text" class="mb0 border0"
+                                                      th:readonly="${#lists.size(detail.projectDetaitChildList) == 0}? 'false':'true'"
+                                                      th:name="${'details['+ pack.id +'].list[' + detailStat.index + '].technologyFee'}"
+                                                      th:value="${detail.technologyFee}"
+                                                      th:onkeyup="${'caculate(this,' + packStat.index + ')'}"/>
+                                </td>
+                                <td class="p0"><input th:type="text" class="mb0 border0"
+                                                      th:readonly="${#lists.size(detail.projectDetaitChildList) == 0}? 'false':'true'"
+                                                      th:name="${'details['+ pack.id +'].list[' + detailStat.index + '].transpotFee'}"
+                                                      th:value="${detail.transpotFee}"
+                                                      th:onkeyup="${'caculate(this,' + packStat.index + ')'}"/>
+                                </td>
+                                <td class="p0" th:width="63px">
+                                    <a href="javascript:;"
+                                       th:onclick="'addTr(this,' + ${ packStat.index } + ',' + ${ detailStat.index } +',\''+${pack.id}+'\')'">增加子项</a>
+                                </td>
+                                <!--遍历子节点-->
+                            <tr th:class="${'newtr' + packStat.index + '-' + detailStat.index}"
+                                th:attr="data-parentid=${detail.id}"
+                                th:each="detailChilds : ${detail.projectDetaitChildList}">
+                                <input th:type="hidden"
+                                       th:name="${'details['+ detailChilds.pId +'].list[' + detailChildsStat.index + '].id'}"
+                                       th:value="${detailChilds.id}"/>
+                                <input th:type="hidden"
+                                       th:name="${'details['+ detailChilds.pId +'].list[' + detailChildsStat.index + '].packageId'}"
+                                       th:value="${detailChilds.packageId}"/>
+                                <td class="info div-center" th:text="${'(' + (detailChildsStat.index + 1) + ')'}"></td>
+                                <td><input th:type="text" class="mb0 border0"
+                                           th:title="${detailChilds.pname}"
+                                           th:name="${'details['+ detailChilds.pId +'].list[' + detailChildsStat.index + '].pname'}"
+                                           th:value="${detailChilds.pname}"/></td>
+                                <td class="p0"><input th:type="text" th:title="${detailChilds.sizeNo}"
+                                                      class="mb0 border0"
+                                                      th:name="${'details['+ detailChilds.pId +'].list[' + detailChildsStat.index + '].sizeNo'}"
+                                                      th:value="${detailChilds.sizeNo}"/></td>
+                                <td class="p0"><input th:type="text" class="mb0 border0"
+                                                      th:name="${'details['+ detailChilds.pId +'].list[' + detailChildsStat.index + '].item'}"
+                                                      th:value="${detailChilds.item}"/></td>
+
+                                <td class="p0"><input th:type="text" class="mb0 border0"
+                                                      th:name="${'details['+ detailChilds.pId +'].list[' + detailChildsStat.index + '].purchaseCount'}"
+                                                      th:onkeyup="${'caculate(this,' + packStat.index + ')'}"
+                                                      th:value="${detailChilds.purchaseCount}"/></td>
+                                <td class="p0"><input th:type="text" class="mb0 border0"
+                                                      th:name="${'details['+ detailChilds.pId +'].list[' + detailChildsStat.index + '].totalPrice'}"
+                                                      th:title="${detailChilds.totalPrice == null}? '': ${#numbers.formatDecimal(detailChilds.totalPrice, 1, 2)}"
+                                                      readonly="readonly"
+                                                      th:value="${detailChilds.totalPrice == null}? '': ${#numbers.formatDecimal(detailChilds.totalPrice, 1, 2)}"/></td>
+                                <td class="p0"><input th:type="text" class="mb0 border0"
+                                                      th:name="${'details['+ detailChilds.pId +'].list[' + detailChildsStat.index + '].unitPrice'}"
+                                                      th:title="${detailChilds.unitPrice == null}? '': ${#numbers.formatDecimal(detailChilds.unitPrice, 1, 2)}"
+                                                      readonly="readonly"
+                                                      th:value="${detailChilds.unitPrice == null}? '': ${#numbers.formatDecimal(detailChilds.unitPrice, 1, 2)}"/></td>
+                                <td class="p0"><input th:type="text" class="mb0 border0"
+                                                      th:name="${'details['+ detailChilds.pId +'].list[' + detailChildsStat.index + '].materialFee'}"
+                                                      th:value="${detailChilds.materialFee}"
+                                                      th:onkeyup="${'caculateChild(this,' + packStat.index + ')'}"/>
+                                </td>
+                                <td class="p0"><input th:type="text" class="mb0 border0"
+                                                      th:name="${'details['+ detailChilds.pId +'].list[' + detailChildsStat.index + '].outsourcingFee'}"
+                                                      th:value="${detailChilds.outsourcingFee}"
+                                                      th:onkeyup="${'caculateChild(this,' + packStat.index + ')'}"/>
+                                </td>
+                                <td class="p0"><input th:type="text" class="mb0 border0"
+                                                      th:name="${'details['+ detailChilds.pId +'].list[' + detailChildsStat.index + '].makefFee'}"
+                                                      th:value="${detailChilds.makefFee}"
+                                                      th:onkeyup="${'caculateChild(this,' + packStat.index + ')'}"/>
+                                </td>
+                                <td class="p0"><input th:type="text" class="mb0 border0"
+                                                      th:name="${'details['+ detailChilds.pId +'].list[' + detailChildsStat.index + '].fuelFee'}"
+                                                      th:value="${detailChilds.fuelFee}"
+                                                      th:onkeyup="${'caculateChild(this,' + packStat.index + ')'}"/>
+                                </td>
+                                <td class="p0"><input th:type="text" class="mb0 border0"
+                                                      th:name="${'details['+ detailChilds.pId +'].list[' + detailChildsStat.index + '].discardFee'}"
+                                                      th:value="${detailChilds.discardFee}"
+                                                      th:onkeyup="${'caculateChild(this,' + packStat.index + ')'}"/>
+                                </td>
+                                <td class="p0"><input th:type="text" class="mb0 border0"
+                                                      th:name="${'details['+ detailChilds.pId +'].list[' + detailChildsStat.index + '].manageFee'}"
+                                                      th:value="${detailChilds.manageFee}"
+                                                      th:onkeyup="${'caculateChild(this,' + packStat.index + ')'}"/>
+                                </td>
+                                <td class="p0"><input th:type="text" class="mb0 border0"
+                                                      th:name="${'details['+ detailChilds.pId +'].list[' + detailChildsStat.index + '].profit'}"
+                                                      th:value="${detailChilds.profit}"
+                                                      th:onkeyup="${'caculateChild(this,' + packStat.index + ')'}"/>
+                                </td>
+                                <td class="p0"><input th:type="text" class="mb0 border0"
+                                                      th:name="${'details['+ detailChilds.pId +'].list[' + detailChildsStat.index + '].taxes'}"
+                                                      th:value="${detailChilds.taxes}"
+                                                      th:onkeyup="${'caculateChild(this,' + packStat.index + ')'}"/>
+                                </td>
+                                <td class="p0"><input th:type="text" class="mb0 border0"
+                                                      th:name="${'details['+ detailChilds.pId +'].list[' + detailChildsStat.index + '].repairsFee'}"
+                                                      th:value="${detailChilds.repairsFee}"
+                                                      th:onkeyup="${'caculateChild(this,' + packStat.index + ')'}"/>
+                                </td>
+                                <td class="p0"><input th:type="text" class="mb0 border0"
+                                                      th:name="${'details['+ detailChilds.pId +'].list[' + detailChildsStat.index + '].installFee'}"
+                                                      th:value="${detailChilds.installFee}"
+                                                      th:onkeyup="${'caculateChild(this,' + packStat.index + ')'}"/>
+                                </td>
+                                <td class="p0"><input th:type="text" class="mb0 border0"
+                                                      th:name="${'details['+ detailChilds.pId +'].list[' + detailChildsStat.index + '].technologyFee'}"
+                                                      th:value="${detailChilds.technologyFee}"
+                                                      th:onkeyup="${'caculateChild(this,' + packStat.index + ')'}"/>
+                                </td>
+                                <td class="p0"><input th:type="text" class="mb0 border0"
+                                                      th:name="${'details['+ detailChilds.pId +'].list[' + detailChildsStat.index + '].transpotFee'}"
+                                                      th:value="${detailChilds.transpotFee}"
+                                                      th:onkeyup="${'caculateChild(this,' + packStat.index + ')'}"/>
+                                </td>
+                                <td class='p0'><a href="javascript:;"
+                                                  th:onclick="'deleteTr(this, ' + ${packStat.index} + ')'">删除</a></td>
+                            </tr>
+                            </tr>
+                            <tr>
+                                <td colspan="20">
+                                    货物总金额（人民币大写）：
+                                    <span th:id="${'bidPriceUpper' + packStat.index}"
+                                          th:text="${pack.bidPriceUpper}"></span>
+                                    &nbsp;&nbsp;&nbsp;（小写）¥：<span th:id="${'bidPriceLower' + packStat.index}"
+                                                                  th:text="${pack.bidPrice == null}? '': ${#numbers.formatDecimal(pack.bidPrice, 1, 2)}"></span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-12 clear tc mt10">
+                    <button class="btn" type="button" id="lastStep">上一步</button>
+                    <button class="btn" type="button" id="isTemporary">暂存</button>
+                    <button class="btn" type="button" id="nextStep">下一步</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

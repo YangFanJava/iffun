@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="detail/nav">
+<body>
+<div th:fragment="content" th:remove="tag">
+    <script type="text/javascript" th:src="@{/js/openbid/finish.js}"></script>
+    <!--<script type="text/javascript" th:src="@{/js/validate/jquery.validate.js}"></script>-->
+    <!--生成文件-->
+    <div class="container">
+        <div class="headline-v2">
+            <h2>生成文件</h2>
+        </div>
+        <div style="margin:70px auto;width:600px;height:100px;">
+            <form id="MyForm" method="post">
+                <!--设置第二步-->
+                <input th:name="id" th:id="projectId" th:type="hidden" th:value="${project.id}"/>
+                <div>
+                    <label>
+                        设置密码：<input type="password" id="new_password" name="pwd" placeholder="设置密码"/>
+                        <span class="red">*6-16位，由字母（区分大小写）、数字组成</span>
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        确定密码：<input type="password" id="confirm_password" name="confirm_password"
+                                    placeholder="确定密码"/>
+                        <span class="red">*6-16位，由字母（区分大小写）、数字组成</span>
+                    </label>
+                </div>
+                <br />
+                <span class="red">*提示：请务必牢记密码，若因忘记密码导致开标时解密失败，由此造成的后果全部由供应商承担！</span>
+            </form>
+        </div>
+        <div class="col-md-12 clear tc mt10">
+            <button class="btn" type="button" id="createFile">生成文件</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

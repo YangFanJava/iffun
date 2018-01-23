@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="detail/nav">
+<body>
+<div th:fragment="content" th:remove="tag">
+    <script type="text/javascript" th:src="@{/js/openbid/show_preview.js}"></script>
+    <form id="myForm" method="post" class="mb0">
+        <!--设置第二步-->
+        <input th:type="hidden" th:id="filePath" th:value="${attachment.path}"/>
+        <input th:type="hidden" th:id="makePricePath" th:value="${makePricePath}"/>
+        <input th:name="id" th:id="projectId" th:type="hidden" th:value="${project.id}"/>
+        <input th:name="navNo" th:id="navNo" th:type="hidden" th:value="${project.navNo}"/>
+        <input th:name="flag" th:id="flag" th:type="hidden"/>
+        <input th:name="is_preview" th:value="true" th:type="hidden"/>
+    </form>
+    <!--开标一览表-->
+    <div class="container">
+        <div class="headline-v2">
+            <h2>检查预览</h2>
+        </div>
+        <div class="content table_box">
+            <h2 class="count_flow"><i>1</i>标书结构</h2>
+            <table class="table table-bordered mt10">
+                <tbody>
+                <tr>
+                    <td class="info div-center">开标一览表：</td>
+                    <td class="p0 div-center"><span><a style="color: red" href="javascript:;"
+                                                       onclick="downOpen(1, this)"
+                                                       th:text="${pType == 0}? '开标一览表.doc':'报价一览表.doc'"></a> | <a
+                            style="color: red" href="javascript:;" onclick="downOpen(2, this)"
+                            th:text="${pType == 0}? '开标一览表.pdf':'报价一览表.pdf'"></a></span></td>
+                    <td class="bggrey div-center">投标文档：</td>
+                    <td class="p0 div-center"><span><a style="color: red" href="javascript:;"
+                                                       onclick="downOpen(3, this)">投标文档.doc</a> | <a
+                            style="color: red"
+                            href="javascript:;" onclick="downOpen(4, this)">投标文档.pdf</a></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="info div-center">分包投标文档：</td>
+                    <td class="p0 div-center">
+                        <span th:each="pack : ${packages}">
+                            <a style="color: red" href="javascript:;"
+                               th:onclick="'download_by_pack(\'' + ${pack.id} + '\', \'' + ${project.id} + '\', \'' + ${pack.name} + '\')'"
+                               th:text="${pack.name}"></a>
+                            <span th:if="${packStat.count lt packStat.size}">|</span>
+                        </span>
+                    </td>
+                    <td class="bggrey div-center"></td>
+                    <td class="p0"></td>
+                </tr>
+                </tbody>
+            </table>
+            <h2 class="count_flow"><i>2</i>评审指标</h2>
+            <div>
+                <table style="text-align: center" class="table table-bordered left_table">
+                    <thead>
+                    <tr>
+                        <th class="info"></th>
+                        <th class="info">指标总计</th>
+                        <th class="info">已响应</th>
+                        <th class="info">未响应</th>
+                    </tr>
+                    </thead>
+                    <tbody th:each="pack : ${packages}">
+                    <tr>
+                        <td class="info red"><span th:text="${pack.name}"></span></td>
+                        <td class="info" colspan="3"></td>
+                    </tr>
+                    <tr th:each="norm : ${pack.norms}">
+                        <td class="info"><span th:text="${norm.typeName}"></span></td>
+                        <td class="info"><span th:text="${norm.indexTotal}"></span></td>
+                        <td class="info"><a href="javascript:;"><span th:text="${norm.respCount}"></span></a></td>
+                        <td class="info"><a style="color: red;" href="javascript:;"><span
+                                th:text="${norm.indexTotal - norm.respCount}"></span></a></td>
+                    </tr>
+                    <tr>
+                        <td class="info"><span>总计</span></td>
+                        <td class="info"><span th:text="${pack.count}"></span></td>
+                        <td class="info"><a href="javascript:;"><span th:text="${pack.respCount}"></span></a></td>
+                        <td class="info"><a style="color: red;" href="javascript:;"><span
+                                th:text="${pack.count - pack.respCount}"></span></a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h2 class="count_flow"><i>3</i>报价情况</h2>
+            <table class="table table-bordered mt10">
+                <tbody>
+                <tr th:each="pack : ${packages}">
+                    <td class="info div-center"><span th:text="${pack.name}"></span></td>
+                    <td class="p0"><span th:text="${pack.bidPrice} + ' 元'"></span></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <h2 class="count_flow"><i>4</i>投标信息</h2>
+            <table class="table table-bordered mt10">
+                <tbody>
+                <tr>
+                    <td class="info div-center">项目名称：</td>
+                    <td class="p0"><span th:text="${project.name}"></span></td>
+                    <td class="bggrey div-center">项目编号：</td>
+                    <td class="p0"><span th:text="${project.projectNumber}"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="info div-center">所投包名：</td>
+                    <td class="p0">
+                        <span th:each="pack : ${packages}">
+                            <span th:text="${pack.name}"></span>
+                            <span th:if="${packStat.count lt packStat.size}">、</span>
+                        </span>
+                    </td>
+                    <!--<td class="bggrey div-center">完工日期：</td>
+                    <td class="p0"><span>250000.00 元</span>-->
+                    <td class="bggrey div-center"></td>
+                    <td class="p0"><span></span>
+                    </td>
+                </tr>
+                <!--<tr>
+                    <td class="info div-center">投标保证金数额：</td>
+                    <td class="p0"><span>150000.00 元</span></td>
+                    <td class="bggrey div-center">投标保证金形式：</td>
+                    <td class="p0"><span>250000.00 元</span>
+                    </td>
+                </tr>-->
+                </tbody>
+            </table>
+            <div class="col-md-12 clear tc mt10">
+                <button class="btn" type="button" id="lastStep">上一步</button>
+                <button class="btn" type="button" id="isTemporary">暂存</button>
+                <button class="btn" type="button" id="nextStep">下一步</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
