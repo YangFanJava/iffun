@@ -1,0 +1,46 @@
+package xin.iffun.entity.vo;
+
+import xin.iffun.entity.Product;
+
+import java.io.Serializable;
+
+/**
+ * Created with IntelliJ IDEA
+ * Created By YangF
+ * Date: 2018/1/24
+ * Time: 17:37
+ */
+public class ProductVo extends Product implements Serializable{
+
+    //全名
+    private String versionName;
+    //最大回收价格
+    private String maxRecoverPrice;
+    //版本图片  用于替代版本图
+    private String versionImg;
+
+
+    public String getVersionName() {
+        return versionName;
+    }
+
+    public void setVersionName(String versionName) {
+        this.versionName = versionName;
+    }
+
+    public String getMaxRecoverPrice() {
+        return maxRecoverPrice;
+    }
+
+    public void setMaxRecoverPrice(String maxRecoverPrice) {
+        this.maxRecoverPrice = maxRecoverPrice;
+    }
+
+    public String getVersionImg() {
+        return versionImg;
+    }
+
+    public void setVersionImg(String versionImg) {
+        this.versionImg = versionImg;
+    }
+}

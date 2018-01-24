@@ -17,4 +17,17 @@
     <result column="is_use" property="isUse" jdbcType="INTEGER" />
     <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
   </resultMap>
+  <resultMap id="voRestltMap" type="xin.iffun.entity.vo.ProductVo" extends="BaseResultMap" >
+
+    <result column="version" property="versionName" jdbcType="VARCHAR" />
+    <result column="recover_price" property="maxRecoverPrice" jdbcType="DECIMAL" />
+    <result column="image" property="versionImg" jdbcType="VARCHAR" />
+
+  </resultMap>
+
+  <select id="selectBYkeyWord">
+    SELECT  * FROM  product p,product_price p2 WHERE p2.
+  </select>
+
+
 </mapper>

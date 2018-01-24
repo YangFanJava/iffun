@@ -22,11 +22,7 @@ public class IndexController {
     @RequestMapping("/index")
     public String idnex(Model model){
         model.addAttribute("test1","hello word1!!"+ new Random().nextInt(100));
-        model.addAttribute("test2","hello word2!!");
-        model.addAttribute("test3","hello word3!!");
-        model.addAttribute("test4","hello word4!!");
         return "recyle/index";
-//        return "test/test";
     }
 
 
