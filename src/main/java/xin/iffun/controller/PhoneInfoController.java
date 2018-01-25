@@ -3,7 +3,7 @@ package xin.iffun.controller;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import xin.iffun.entity.Product;
+import org.springframework.web.bind.annotation.ResponseBody;
 import xin.iffun.entity.vo.ProductVo;
 import xin.iffun.service.PhoneService;
 import xin.iffun.util.R;
@@ -28,6 +28,7 @@ public class PhoneInfoController {
 
 
     @RequestMapping("/byName")
+    @ResponseBody
     public R selectPhoneList(String keyword){
         List<ProductVo> vos = null;
         if (StringUtils.isNotBlank(keyword)){
