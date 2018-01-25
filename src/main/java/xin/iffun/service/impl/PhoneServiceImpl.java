@@ -2,6 +2,8 @@ package xin.iffun.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
+import xin.iffun.entity.ProductPrice;
 import xin.iffun.entity.vo.ProductVo;
 import xin.iffun.mapper.ProductMapper;
 import xin.iffun.mapper.ProductPriceMapper;
@@ -29,8 +31,13 @@ public class PhoneServiceImpl implements PhoneService {
 
     @Override
     public List<ProductVo> selectList(String keyword, int page, int limit) {
-
         PageHelper.startPage(page,limit,false);
-        return productPriceMapper.selectBYkeyWord(keyword);
+        return productPriceMapper.selectVoByExample(" p2.version like '"+keyword+"%' ");
+    }
+
+    @Override
+    public List<ProductVo> selectHotList(int page, int pageSize) {
+        PageHelper.startPage(page,pageSize,false);
+        return productPriceMapper.selectVoByExample(null);
     }
 }

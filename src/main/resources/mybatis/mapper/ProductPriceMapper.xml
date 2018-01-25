@@ -17,16 +17,56 @@
     <result column="is_use" property="isUse" jdbcType="INTEGER" />
     <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
   </resultMap>
-  <resultMap id="voRestltMap" type="xin.iffun.entity.vo.ProductVo" extends="BaseResultMap" >
 
-    <result column="version" property="versionName" jdbcType="VARCHAR" />
-    <result column="recover_price" property="maxRecoverPrice" jdbcType="DECIMAL" />
-    <result column="image" property="versionImg" jdbcType="VARCHAR" />
 
+  <resultMap id="productResultMap" type="xin.iffun.entity.Product" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="productId" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="brand_id" property="brandId" jdbcType="INTEGER" />
+    <result column="category_id" property="categoryId" jdbcType="INTEGER" />
+    <result column="sell_point" property="sellPoint" jdbcType="VARCHAR" />
+    <result column="synopsis" property="synopsis" jdbcType="VARCHAR" />
+    <result column="keywords" property="keywords" jdbcType="VARCHAR" />
+    <result column="images" property="images" jdbcType="VARCHAR" />
+    <result column="product_market_price" property="marketPrice" jdbcType="DECIMAL" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="is_hot" property="isHot" jdbcType="INTEGER" />
+    <result column="is_alive" property="isAlive" jdbcType="INTEGER" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="voRestltMap" type="xin.iffun.entity.vo.ProductVo" extends="productResultMap">
+    <!--<association property="product" javaType="Product"  resultMap="productResultMap" >-->
+    <!--</association>-->
+    <collection property="prices" column="price_id"   ofType="xin.iffun.entity.ProductPrice" >
+      <id column="price_id" property="id" jdbcType="INTEGER" />
+      <result column="product_id" property="productId" jdbcType="INTEGER" />
+      <result column="version" property="version" jdbcType="VARCHAR" />
+      <result column="price_market_price" property="marketPrice" jdbcType="DECIMAL" />
+      <result column="sale_price" property="salePrice" jdbcType="DECIMAL" />
+      <result column="recover_price" property="recoverPrice" jdbcType="DECIMAL" />
+      <result column="color" property="color" jdbcType="VARCHAR" />
+      <result column="image" property="image" jdbcType="VARCHAR" />
+      <result column="stock" property="stock" jdbcType="INTEGER" />
+      <result column="is_use" property="isUse" jdbcType="INTEGER" />
+      <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    </collection>
   </resultMap>
 
   <select id="selectBYkeyWord">
     SELECT  * FROM  product p,product_price p2 WHERE p2.
+  </select>
+  <select id="selectVoByExample" resultMap="voRestltMap"   >
+    SELECT  *,p2.id price_id,p2.market_price price_market_price,p1.id productId,p1.market_price procudt_market_price
+    FROM
+    product p1, product_price p2
+    WHERE p1.id = p2.product_id
+    <if test=" criteria != null and criteria != ''">
+       AND  ${criteria}
+    </if>
+    ORDER  BY  sort desc
   </select>
 
 

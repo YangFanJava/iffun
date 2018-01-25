@@ -5,6 +5,7 @@
         <property name="dialect" value="oracle" />
     </properties>
     <settings>
+        <setting name="logPrefix" value="mapper."/>
         <!-- 开启驼峰匹配 -->
         <setting name="mapUnderscoreToCamelCase" value="true"/>
         <!-- 这个配置使全局的映射器启用或禁用缓存。系统默认值是true，设置只是为了展示出来 -->

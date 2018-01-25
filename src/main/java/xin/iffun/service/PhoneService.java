@@ -12,4 +12,7 @@ import java.util.List;
  */
 public interface PhoneService {
     List<ProductVo> selectList(String keyword, int page, int limit);
+
+    List<ProductVo> selectHotList(int i, int i1);
+
 }
