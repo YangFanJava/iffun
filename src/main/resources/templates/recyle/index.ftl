@@ -6,177 +6,195 @@
     <meta name="renderer" content="webkit"/><!-- 让360浏览器默认选择webkit内核 -->
     <title>诚信回收-手机选择</title>
     <!-- 引入 CSS -->
-    <link media="all" href="/frozenui/css/frozen.css" rel="stylesheet">
+    <link media="all" href="/css/aui/aui.css" rel="stylesheet">
 
-    <!-- 引入 JS -->
-    <script src="/frozenui/lib/zepto.min.js"></script>
-
-    <!-- 特效组件需要另外引用 -->
-    <script src="/frozenui/js/effect/cover.js"></script>
+    <style type="text/css">
+        .aui-content-padded {
+            padding: 0.75rem;
+            background-color: #ffffff;
+            margin-top: 0.75rem;
+        }
+    </style>
 </head>
-<body>
+<body  >
 
-
-
-
-
-<div id="header">
-    <ul class="ui-list ui-list-text ui-border-tb" >
-        <li class="ui-border-t">
-            <div class="ui-searchbar-wrap ui-border-b" style="width: 100%">
-                <div class="ui-searchbar ui-border-radius">
-                    <i class="ui-icon-search"></i>
-                    <div class="ui-searchbar-text">搜索手机</div>
-                    <div class="ui-searchbar-input"><input value="" type="tel" id="search" placeholder="请输入手机型号" autocapitalize="off"></div>
-                    <i class="ui-icon-close"></i>
-                </div>
-                <button class="ui-searchbar-cancel">取消</button>
-            </div>
-        </li>
-    </ul>
+<div class="aui-searchbar" id="search">
+    <div class="aui-searchbar-input aui-border-radius">
+        <i class="aui-iconfont aui-icon-search"></i>
+        <input type="search" placeholder="请输入搜索内容" id="search-input">
+        <div class="aui-searchbar-clear-btn">
+            <i class="aui-iconfont aui-icon-close"></i>
+        </div>
+    </div>
+    <div class="aui-searchbar-btn" tapmode>取消</div>
 </div>
 
 
-<div id="typebox">
+<section class="aui-content-padded aui-refresh-content"" id="hotProduct">
+<#--要搜索的内容为：<span class="aui-text-info" id="search-keywords"></span>-->
 
 
-
-
-
-</div>
-
-
-
-<div id="seacchbox">
-    <ul class="ui-list ui-list-text ui-border-tb" id="phone-list">
-
-        <li class="ui-border-t">
-            <div class="ui-list-info">
-                <h4>标题标题标题标题标题标题标</h4>
+    <div class="aui-card-list">
+        <div class="aui-card-list-header">
+            <div>
+                <i class="aui-iconfont aui-icon-mobile aui-text-danger"></i>
+                <span class="aui-text-danger">有关"<span style="color: red" id="search-keywords"></span>"的商品</span>
             </div>
-            <div class="ui-list-action">
-                <img src="https://img12.360buyimg.com/n2/jfs/t13399/327/344341150/113696/7a6cb3b1/5a27a423Nc9f0bcea.jpg!q95.jpg" >
-            </div>
-        </li>
-        <li class="ui-border-t">
-            <div class="ui-list-info">
-                <h4>标题标题标题标题标题标题标</h4>
-            </div>
-            <div class="ui-list-action">
-                <img src="https://img12.360buyimg.com/n2/jfs/t13399/327/344341150/113696/7a6cb3b1/5a27a423Nc9f0bcea.jpg!q95.jpg" >
-            </div>
-        </li>
-        <li class="ui-border-t">
-            <div class="ui-list-info">
-                <h4>标题标题标题标题标题标题标</h4>
-            </div>
-            <div class="ui-list-action">
-                <img src="https://img12.360buyimg.com/n2/jfs/t13399/327/344341150/113696/7a6cb3b1/5a27a423Nc9f0bcea.jpg!q95.jpg" >
-            </div>
-        </li>
-        <li class="ui-border-t">
-            <div class="ui-list-info">
-                <h4>标题标题标题标题标题标题标</h4>
-            </div>
-            <div class="ui-list-action">
-                <img src="https://img12.360buyimg.com/n2/jfs/t13399/327/344341150/113696/7a6cb3b1/5a27a423Nc9f0bcea.jpg!q95.jpg" >
-            </div>
-        </li>
-    </ul>
-</div>
+            <i class="aui-iconfont aui-icon-more"></i>
+        </div>
+        <div class="aui-card-list-content">
+            <ul class="aui-list aui-media-list" id="searchResultBox">
+                <li class="aui-list-item aui-list-item-middle">
+                    <div class="aui-media-list-item-inner">
+                        <div class="aui-list-item-media" style="width: 3rem;">
+                            <img src="http://img11.360buyimg.com/n2/jfs/t12730/306/1517709913/155178/f5e7e927/5a22acfaNf7222715.jpg!q95.jpg" >
+                        </div>
+                        <div class="aui-list-item-inner aui-list-item-arrow">
+                            <div class="aui-list-item-text">
+                                <div class="aui-list-item-title aui-font-size-14">AUI</div>
+                                <div class="aui-list-item-right">08:00</div>
+                            </div>
+                            <div class="aui-list-item-text">
+                                www.auicss.com
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="aui-list-item aui-list-item-middle">
+                    <div class="aui-media-list-item-inner">
+                        <div class="aui-list-item-media" style="width: 3rem;">
+                            <img src="http://img11.360buyimg.com/n2/jfs/t12730/306/1517709913/155178/f5e7e927/5a22acfaNf7222715.jpg!q95.jpg" >
+                        </div>
+                        <div class="aui-list-item-inner aui-list-item-arrow">
+                            小米7
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="aui-card-list-footer aui-text-center">
+            查看更多
+        </div>
+    </div>
+</section>
 
-<!-- <script src="http://i.gtimg.cn/vipstyle/frozenjs/1.0.1/frozen.js?_bid=304"></script> -->
-<script src="/frozenui/js/frozen.js"></script>
-<script type="text/javascript">
-    $('.ui-searchbar').tap(function(){
-        $('.ui-searchbar-wrap').addClass('focus');
-        $('.ui-searchbar-input input').focus();
-
-//        $("#seacchbox").show(200);
-    });
-    $('.ui-searchbar-cancel').tap(function(){
-        $('.ui-searchbar-wrap').removeClass('focus');
-        showList(true);
-//        $("#seacchbox").hide(100);
-    });
-
-    var lastSearchText = "";
-
-    $('#search').on('input propertychange',function (e) {
-                if (e.type === "input" || e.orignalEvent.propertyName === "value") {
-                    if(this.value != lastSearchText){
-                        lastSearchText = this.value;
-                        showList();
-                    }
-                }
-            })
-
-
-
-    var hotPhone = [
-        {
-            "name":"小米6(6G/64G 移动定制版)",
-            "img":"https://img12.360buyimg.com/n2/jfs/t13399/327/344341150/113696/7a6cb3b1/5a27a423Nc9f0bcea.jpg!q95.jpg"
-        },
-        {
-            "name":"iphone 6s(6G/64G 移动定制版)",
-            "img":"https://img12.360buyimg.com/n2/jfs/t13399/327/344341150/113696/7a6cb3b1/5a27a423Nc9f0bcea.jpg!q95.jpg"
-        },
-        {
-            "name":"华为 mate10 6s(6G/64G 移动定制版)",
-            "img":"https://img12.360buyimg.com/n2/jfs/t13399/327/344341150/113696/7a6cb3b1/5a27a423Nc9f0bcea.jpg!q95.jpg"
-        },
-    ]
-
-
-    var el ;
-
-    function showList(ishot) {
-        el=$.tips({
-            content:'温馨提示内容',
-            stayTime:1000,
-            type:"success"
-        })
-        el.on("tips:hide",function(){
-            console.log("tips hide");
-        })
-
-
-
-        var phoneList = [];
-        if($("#search").val() == ''||ishot){
-            phoneList = hotPhone;
-            flushData(phoneList);
-        }else{
-            phoneList = [
-                {
-                    "name":"cc 小米6(6G/64G 移动定制版)",
-                    "img":"https://img12.360buyimg.com/n2/jfs/t13399/327/344341150/113696/7a6cb3b1/5a27a423Nc9f0bcea.jpg!q95.jpg"
-                },
-                {
-                    "name":"cc iphone 6s(6G/64G 移动定制版)",
-                    "img":"https://img12.360buyimg.com/n2/jfs/t13399/327/344341150/113696/7a6cb3b1/5a27a423Nc9f0bcea.jpg!q95.jpg"
-                },
-                {
-                    "name":"cc 华为 mate10 6s(6G/64G 移动定制版)",
-                    "img":"https://img12.360buyimg.com/n2/jfs/t13399/327/344341150/113696/7a6cb3b1/5a27a423Nc9f0bcea.jpg!q95.jpg"
-                },
-            ];
-            flushData(phoneList);
-//            $.ajax("")
-        }
-    }
-    function flushData(phoneList) {
-        var innerList = "";
-        for( var i = 0,length = phoneList.length;i<length;i++){
-            innerList +='<li class="ui-border-t"><div class="ui-list-info"><h4>'+phoneList[i].name+'</h4></div><div class="ui-list-action">'
-                    +'<img src="'+phoneList[i].img+'" ></div></li>';
-        }
-        $("#phone-list").html(innerList);
-    }
-
-    showList();
-    
-</script>
+<section class="aui-content-padded" >
+    <div class="aui-card-list" id="searchProduct">
+        <div class="aui-card-list-header">
+            <div>
+                <i class="aui-iconfont aui-icon-mobile aui-text-danger"></i>
+                <span class="aui-text-danger">热门手机</span></div>
+            <i class="aui-iconfont aui-icon-more"></i>
+        </div>
+        <div class="aui-card-list-content">
+            <ul class="aui-list aui-media-list" >
+                <li class="aui-list-item aui-list-item-middle">
+                    <div class="aui-media-list-item-inner">
+                        <div class="aui-list-item-media" style="width: 3rem;">
+                            <img src="http://img11.360buyimg.com/n2/jfs/t12730/306/1517709913/155178/f5e7e927/5a22acfaNf7222715.jpg!q95.jpg" >
+                        </div>
+                        <div class="aui-list-item-inner aui-list-item-arrow">
+                            <div class="aui-list-item-text">
+                                <div class="aui-list-item-title aui-font-size-14">AUI</div>
+                                <div class="aui-list-item-right">08:00</div>
+                            </div>
+                            <div class="aui-list-item-text">
+                                www.auicss.com
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="aui-list-item aui-list-item-middle">
+                    <div class="aui-media-list-item-inner">
+                        <div class="aui-list-item-media" style="width: 3rem;">
+                            <img src="http://img11.360buyimg.com/n2/jfs/t12730/306/1517709913/155178/f5e7e927/5a22acfaNf7222715.jpg!q95.jpg" >
+                        </div>
+                        <div class="aui-list-item-inner aui-list-item-arrow">
+                            iphoneX
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="aui-card-list-footer aui-text-center">
+            查看更多
+        </div>
+    </div>
+</section>
 </body>
-</html>
+<script type="text/javascript" src="/js/aui/api.js" ></script>
+<script type="text/javascript" src="/js/aui/aui-toast.js" ></script>
+<!-- 引入 JS -->
+<script src="/js/jquery.min.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+        api.parseTapmode();
+    }
+    var toast = new auiToast({
+    })
+    var searchBar = document.querySelector(".aui-searchbar");
+    var searchBarInput = document.querySelector(".aui-searchbar input");
+    var searchBarBtn = document.querySelector(".aui-searchbar .aui-searchbar-btn");
+    var searchBarClearBtn = document.querySelector(".aui-searchbar .aui-searchbar-clear-btn");
+    if(searchBar){
+        searchBarInput.onclick = function(){
+            searchBarBtn.style.marginRight = 0;
+        }
+        searchBarInput.oninput = function(){
+            if(this.value.length){
+                searchBarClearBtn.style.display = 'block';
+                searchBarBtn.classList.add("aui-text-info");
+                searchBarBtn.textContent = "搜索";
+            }else{
+                searchBarClearBtn.style.display = 'none';
+                searchBarBtn.classList.remove("aui-text-info");
+                searchBarBtn.textContent = "取消";
+            }
+        }
+    }
+    searchBarClearBtn.onclick = function(){
+        this.style.display = 'none';
+        searchBarInput.value = '';
+        searchBarBtn.classList.remove("aui-text-info");
+        searchBarBtn.textContent = "取消";
+    }
+
+    searchBarBtn.onclick = function(){
+        var keywords = searchBarInput.value;
+        console.log(keywords);
+        if(keywords.length){
+            searchBarInput.blur();
+            toast.loading({
+                title:"获取数据中...",
+                duration:2000
+            },function(ret){
+                $.post("/weixin/phone/byName",{ "keyword":keywords },function (r) {
+                    if(r.code == '0'){
+                        var text = "";
+                        $.each(r.list,function(i,product){
+                            $.each(product.prices,function(price){
+                                text += '<li class="aui-list-item aui-list-item-middle"><div class="aui-media-list-item-inner"><div class="aui-list-item-media" style="width: 3rem;">';
+                                text += '<img src="'+product.images + '" ></div><div class="aui-list-item-inner aui-list-item-arrow"><div class="aui-list-item-text">';
+                                text += '<div class="aui-list-item-title aui-font-size-14">'+product.version+'</div>';
+                                text += '<span class="aui-list-item-right">已回收：100</div>';
+                                text += '</div><div class="aui-list-item-text">最低回收价格<span style="color: red">'+product.recoverPrice+'</span></div></div></div></li>';
+                            })
+                        })
+                        $("#searchResultBox").html(text);
+                        toast.hide();
+                    }else{
+
+                        toast.hide();
+                    }
+                })
+            });
+            //第一次查询  填充搜索列表并显示 。
+            //TODO 显示等待页面
+
+        }else{
+            this.style.marginRight = "-"+this.offsetWidth+"px";
+            searchBarInput.value = '';
+            searchBarInput.blur();
+        }
+    }
+</script>
