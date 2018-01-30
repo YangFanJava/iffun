@@ -33,10 +33,10 @@ public class PhoneInfoController {
         List<ProductVo> vos = null;
         if (StringUtils.isNotBlank(keyword)){
             vos = phoneService.selectList(keyword,1,10);
-        }else{
-            vos = phoneService.selectHotList(1,10);
+        }else {
+            vos = phoneService.selectHotList(1, 10);
         }
-        return R.ok();
+        return R.ok().put("list",vos);
     }
 
 

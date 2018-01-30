@@ -32,7 +32,7 @@ public class PhoneServiceImpl implements PhoneService {
     @Override
     public List<ProductVo> selectList(String keyword, int page, int limit) {
         PageHelper.startPage(page,limit,false);
-        return productPriceMapper.selectVoByExample(" p2.version like '%"+keyword +"'");
+        return productPriceMapper.selectVoByExample(" p2.version like '%"+keyword +"%'");
     }
 
     @Override

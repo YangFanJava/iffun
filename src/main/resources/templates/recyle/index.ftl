@@ -170,20 +170,20 @@
             },function(ret){
                 $.post("/weixin/phone/byName",{ "keyword":keywords },function (r) {
                     if(r.code == '0'){
+                        var defaultImage = 'http://img11.360buyimg.com/n2/jfs/t12730/306/1517709913/155178/f5e7e927/5a22acfaNf7222715.jpg!q95.jpg';
+                        toast.hide();
                         var text = "";
                         $.each(r.list,function(i,product){
-                            $.each(product.prices,function(price){
+                            $.each(product.prices,function(j,price){
                                 text += '<li class="aui-list-item aui-list-item-middle"><div class="aui-media-list-item-inner"><div class="aui-list-item-media" style="width: 3rem;">';
-                                text += '<img src="'+product.images + '" ></div><div class="aui-list-item-inner aui-list-item-arrow"><div class="aui-list-item-text">';
-                                text += '<div class="aui-list-item-title aui-font-size-14">'+product.version+'</div>';
-                                text += '<span class="aui-list-item-right">已回收：100</div>';
+                                text += '<img src="'+(price.images?price.images:(product.image?product.image.split(",")[0]:defaultImage)) + '" ></div><div class="aui-list-item-inner aui-list-item-arrow"><div class="aui-list-item-text">';
+                                text += '<div class="aui-list-item-title aui-font-size-14">'+(price.version.length>9?(price.version.slice(0,9)+'...'):price.version)+'</div>';
+                                text += '<div class="aui-list-item-right">已回收：100</div>';
                                 text += '</div><div class="aui-list-item-text">最低回收价格<span style="color: red">'+product.recoverPrice+'</span></div></div></div></li>';
                             })
                         })
                         $("#searchResultBox").html(text);
-                        toast.hide();
                     }else{
-
                         toast.hide();
                     }
                 })
