@@ -1,6 +1,7 @@
 package xin.iffun.service;
 
 import xin.iffun.entity.vo.ProductVo;
+import xin.iffun.entity.vo.QAVo;
 
 import java.util.List;
 
@@ -15,4 +16,8 @@ public interface PhoneService {
 
     List<ProductVo> selectHotList(int i, int i1);
 
+    ProductVo selectPhoneByPriceId(String priceId);
+
+
+    List<QAVo> searchQaByProductId(Integer id);
 }

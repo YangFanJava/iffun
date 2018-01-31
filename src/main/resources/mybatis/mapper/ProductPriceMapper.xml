@@ -68,6 +68,13 @@
     </if>
     ORDER  BY  sort desc
   </select>
+  <select id="selectPhoneByPriceId" resultMap="voRestltMap" parameterType="java.lang.String"   >
+    SELECT  *,p2.id price_id,p2.market_price price_market_price,p1.id productId,p1.market_price procudt_market_price
+    FROM
+    product p1, product_price p2
+    WHERE p1.id = p2.product_id
+    AND p2.id = #{priceId}
+  </select>
 
 
 </mapper>

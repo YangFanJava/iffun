@@ -44,37 +44,11 @@
         </div>
         <div class="aui-card-list-content">
             <ul class="aui-list aui-media-list" id="searchResultBox">
-                <li class="aui-list-item aui-list-item-middle">
-                    <div class="aui-media-list-item-inner">
-                        <div class="aui-list-item-media" style="width: 3rem;">
-                            <img src="http://img11.360buyimg.com/n2/jfs/t12730/306/1517709913/155178/f5e7e927/5a22acfaNf7222715.jpg!q95.jpg" >
-                        </div>
-                        <div class="aui-list-item-inner aui-list-item-arrow">
-                            <div class="aui-list-item-text">
-                                <div class="aui-list-item-title aui-font-size-14">AUI</div>
-                                <div class="aui-list-item-right">08:00</div>
-                            </div>
-                            <div class="aui-list-item-text">
-                                www.auicss.com
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="aui-list-item aui-list-item-middle">
-                    <div class="aui-media-list-item-inner">
-                        <div class="aui-list-item-media" style="width: 3rem;">
-                            <img src="http://img11.360buyimg.com/n2/jfs/t12730/306/1517709913/155178/f5e7e927/5a22acfaNf7222715.jpg!q95.jpg" >
-                        </div>
-                        <div class="aui-list-item-inner aui-list-item-arrow">
-                            小米7
-                        </div>
-                    </div>
-                </li>
             </ul>
         </div>
-        <div class="aui-card-list-footer aui-text-center">
-            查看更多
-        </div>
+        <#--<div class="aui-card-list-footer aui-text-center">-->
+            <#--查看更多-->
+        <#--</div>-->
     </div>
 </section>
 
@@ -176,13 +150,16 @@
                         $.each(r.list,function(i,product){
                             $.each(product.prices,function(j,price){
                                 text += '<li class="aui-list-item aui-list-item-middle"><div class="aui-media-list-item-inner"><div class="aui-list-item-media" style="width: 3rem;">';
-                                text += '<img src="'+(price.images?price.images:(product.image?product.image.split(",")[0]:defaultImage)) + '" ></div><div class="aui-list-item-inner aui-list-item-arrow"><div class="aui-list-item-text">';
+                                text += '<input name="priceId" hidden value="'+price.id+'" >'
+                                text += '<img src="'+(price.image?price.image:(product.images?product.images.split(",")[0]:defaultImage)) + '" ></div><div class="aui-list-item-inner aui-list-item-arrow"><div class="aui-list-item-text">';
                                 text += '<div class="aui-list-item-title aui-font-size-14">'+(price.version.length>9?(price.version.slice(0,9)+'...'):price.version)+'</div>';
                                 text += '<div class="aui-list-item-right">已回收：100</div>';
-                                text += '</div><div class="aui-list-item-text">最低回收价格<span style="color: red">'+product.recoverPrice+'</span></div></div></div></li>';
+                                text += '</div><div class="aui-list-item-text">最高回收价格'+price.recoverPrice+'</div></div></div></li>';
                             })
                         })
                         $("#searchResultBox").html(text);
+                        //重新绑定事件
+                        initLiBindEvent();
                     }else{
                         toast.hide();
                     }
@@ -197,4 +174,17 @@
             searchBarInput.blur();
         }
     }
+
+
+    function initLiBindEvent() {
+        $("li").click(function () {
+            var priceId =  $(this).find("input[name='priceId']").val();
+            location.href = "/weixin/recyle/estimate"
+        });
+    }
+
+
+    initLiBindEvent();
+
+
 </script>

@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 import xin.iffun.entity.ProductPrice;
 import xin.iffun.entity.vo.ProductVo;
+import xin.iffun.entity.vo.QAVo;
+import xin.iffun.mapper.AccessQaMapper;
 import xin.iffun.mapper.ProductMapper;
 import xin.iffun.mapper.ProductPriceMapper;
 import xin.iffun.service.PhoneService;
@@ -39,5 +41,20 @@ public class PhoneServiceImpl implements PhoneService {
     public List<ProductVo> selectHotList(int page, int pageSize) {
         PageHelper.startPage(page,pageSize,false);
         return productPriceMapper.selectVoByExample(null);
+    }
+
+    @Override
+    public ProductVo selectPhoneByPriceId(String priceId) {
+        return productPriceMapper.selectPhoneByPriceId(priceId);
+    }
+
+
+    @Resource
+    private AccessQaMapper accessQaMapper;
+
+
+    @Override
+    public List<QAVo> searchQaByProductId(Integer productId) {
+        return accessQaMapper.searchQaByProductId(productId);
     }
 }

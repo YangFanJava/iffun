@@ -16,4 +16,5 @@ public interface ProductPriceMapper extends CommonMapper<ProductPrice> {
 
     List<ProductVo> selectVoByExample(@Param("criteria") String criteria);
 
+    ProductVo selectPhoneByPriceId(@Param("priceId") String priceId);
 }
