@@ -16,7 +16,7 @@
 
 
 
-  <resultMap id="voRestltMap" type="xin.iffun.entity.vo.QAVo" >
+  <resultMap id="voRestltMap1" type="xin.iffun.entity.vo.QAVo" >
       <id  column="question" property="questionInfo" jdbcType="VARCHAR" />
 
       <result column="q_sort" property="sort" jdbcType="INTEGER" />
@@ -30,7 +30,7 @@
   </resultMap>
 
 
-  <select id="searchQaByProductId" resultMap="voRestltMap"   >
+  <select id="searchQaByProductId" resultMap="voRestltMap1"   >
       select qa.id id,qa.question question,qa.answer answer,qa.q_sort q_sort,qa.a_sort a_sort,qa.is_multi is_multi,pq.score score
 
        from access_qa qa,product p ,product_qa pq

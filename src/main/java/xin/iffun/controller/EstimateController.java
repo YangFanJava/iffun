@@ -39,6 +39,7 @@ public class EstimateController {
         List<QAVo> qaVo = phoneService.searchQaByProductId(vo.getId());
 
         model.addAttribute("product",vo);
+        model.addAttribute("qaVo",qaVo);
         return "recyle/qa";
     }
 

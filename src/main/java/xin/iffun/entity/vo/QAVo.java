@@ -25,7 +25,7 @@ public class QAVo  implements Serializable{
     public QAVo() {
     }
 
-    public class Answer{
+    public static class Answer{
 
         private Integer id;
         private String answerInfo;

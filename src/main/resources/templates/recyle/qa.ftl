@@ -9,26 +9,87 @@
     <link media="all" href="/css/aui/aui.css" rel="stylesheet">
 
     <style type="text/css">
-        .aui-content-padded {
-            padding: 0.75rem;
-            background-color: #ffffff;
-            margin-top: 0.75rem;
+        .aui-card-list-header{
+            border-bottom: 0.1rem solid #F5F5F5;
         }
+        <#--.aui-content-padded {-->
+            <#--padding: 0.75rem;-->
+            <#--background-color: #ffffff;-->
+            <#--margin-top: 0.75rem;-->
+        <#--}-->
     </style>
 </head>
 <body  >
-<header class="aui-bar aui-bar-nav aui-bar-light">
-    <div class="aui-info">
-        <div class="aui-info-item">
-            <img src="" style="width:2.2rem">
-            <span class="aui-margin-l-10 aui-margin-r-10">AUI</span>
-            <i class="aui-iconfont aui-icon-laud aui-text-info "></i>
-        </div>
-        <div class="aui-info-item">11km</div>
-    </div>
+<header class="aui-bar aui-bar-nav aui-bar-light"  style="border-bottom: 1rem solid #f5f5f5" >
+     <div class="aui-media-list-item-inner" style="height: 5rem">
+         <ul class="aui-list aui-media-list" >
+             <li class="aui-list-item aui-list-item-middle">
+                 <div class="aui-media-list-item-inner">
+                     <div class="aui-list-item-media" style="width: 3rem;">
+                         <#list product.images?split(",") as img>
+                             <#if img_index == 0>
+                                 <#--<img    src="${img}"  style="width:2.2rem;left: 0.3rem">-->
+                                 <img src="http://img11.360buyimg.com/n2/jfs/t12730/306/1517709913/155178/f5e7e927/5a22acfaNf7222715.jpg!q95.jpg" >
+                             </#if>
+                         </#list>
+                     </div>
+                     <div class="aui-list-item-inner">
+
+                     <#list product.prices as price>
+                         <div class="aui-list-item-text">
+                             <div class="aui-list-item-title aui-font-size-14">${price.version}</div>
+                             <div class="aui-list-item-right">已回收:100台</div>
+                         </div>
+                         <div class="aui-list-item-text">
+                             最高交易价格:${price.recoverPrice}
+                         </div>
+                     </#list>
+                 </div>
+             </div>
+         </li>
+     </ul>
+ </div>
 </header>
 
 
+
+<#list qaVo as question>
+    <div class="aui-card-list" >
+        <div class="aui-card-list-header">
+            ${question_index+1}  ${question.questionInfo}
+                <#--<i class="aui-iconfont aui-icon-my "></i>-->
+            <#--<i class="aui-iconfont aui-icon-more"></i>-->
+        </div>
+        <div class="aui-card-list-content">
+            <ul class="aui-list aui-select-list">
+                <#list question.answers as answer>
+                    <li class="aui-list-item answer-box">
+                        <div class="aui-list-item-input">
+                            <label>
+                                <#if question.isMulti == 1>
+                                    <input  class="aui-checkbox"   type="checkbox" name="${question.questionInfo}" value="${answer.score}">
+                                <#else>
+                                    <input  class="aui-radio"  type="radio" name="${question.questionInfo}" value="${answer.score}">
+                                </#if>
+                                ${answer.answerInfo}
+                            </label>
+                        </div>
+                    </li>
+                </#list>
+            </ul>
+        </div>
+        <#--<div class="aui-card-list-footer aui-text-center">-->
+            <#--底部-->
+        <#--</div>-->
+    </div>
+</#list>
+
+
+<div  class="aui-card-list">
+    <div class="aui-card-list-content">
+        <p><div class="aui-btn aui-btn-success aui-btn-block aui-btn-outlined" id="submitbtn" >提交</div></p>
+    </div>
+</div>
 
 
 </body>
@@ -40,4 +101,36 @@
     apiready = function(){
         api.parseTapmode();
     }
+    $(function () {
+        var submitText = {
+            <#list qaVo as quest>
+                "${quest.questionInfo}":"",
+            </#list>
+        }
+
+
+
+        $("#submitbtn").click(function () {
+
+
+
+        });
+        $(".answer-box").click(function () {
+//            if($("input[name='维修历史']:checked").length>0){
+//
+//            }
+            var  input  = $(this).find("input")[0];
+            if($(input).attr("type") == 'radio'){
+                $(input).attr("checked","true");
+            }else if($(input).attr("type") == 'checkbox'){
+                if($(input).is(':checked')){
+                    $(input).removeAttr("checked");
+                }else{
+                    $(input).prop("checked","true");
+                }
+            }
+        })
+    })
+
+
 </script>

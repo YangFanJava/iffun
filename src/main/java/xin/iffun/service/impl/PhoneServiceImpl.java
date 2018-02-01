@@ -2,8 +2,6 @@ package xin.iffun.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
-import tk.mybatis.mapper.entity.Example;
-import xin.iffun.entity.ProductPrice;
 import xin.iffun.entity.vo.ProductVo;
 import xin.iffun.entity.vo.QAVo;
 import xin.iffun.mapper.AccessQaMapper;
