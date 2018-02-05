@@ -12,11 +12,6 @@
         .aui-card-list-header{
             border-bottom: 0.1rem solid #F5F5F5;
         }
-        <#--.aui-content-padded {-->
-            <#--padding: 0.75rem;-->
-            <#--background-color: #ffffff;-->
-            <#--margin-top: 0.75rem;-->
-        <#--}-->
     </style>
 </head>
 <body  >
@@ -53,12 +48,11 @@
 
 
 
+<form id="qa">
 <#list qaVo as question>
     <div class="aui-card-list" >
         <div class="aui-card-list-header">
             ${question_index+1}  ${question.questionInfo}
-                <#--<i class="aui-iconfont aui-icon-my "></i>-->
-            <#--<i class="aui-iconfont aui-icon-more"></i>-->
         </div>
         <div class="aui-card-list-content">
             <ul class="aui-list aui-select-list">
@@ -83,11 +77,12 @@
         <#--</div>-->
     </div>
 </#list>
+</form>
 
 
 <div  class="aui-card-list">
     <div class="aui-card-list-content">
-        <p><div class="aui-btn aui-btn-success aui-btn-block aui-btn-outlined" id="submitbtn" >提交</div></p>
+        <p><div class="aui-btn aui-btn-info aui-btn-block aui-btn-outlined" id="submitbtn" >提交</div></p>
     </div>
 </div>
 
@@ -95,30 +90,32 @@
 </body>
 <script type="text/javascript" src="/js/aui/api.js" ></script>
 <script type="text/javascript" src="/js/aui/aui-toast.js" ></script>
+<script type="text/javascript" src="/js/aui/aui-dialog.js" ></script>
 <!-- 引入 JS -->
 <script src="/js/jquery.min.js"></script>
 <script type="text/javascript">
     apiready = function(){
         api.parseTapmode();
     }
+    var dialog = new auiDialog({})
     $(function () {
-        var submitText = {
-            <#list qaVo as quest>
-                "${quest.questionInfo}":"",
-            </#list>
-        }
-
-
-
         $("#submitbtn").click(function () {
-
-
-
+            console.info($("#qa").serialize());
+            dialog.prompt({
+                title:"弹出提示",
+                text:'默认内容',
+                buttons:['取消','确定']
+            },function(ret){
+                if(ret.buttonIndex == 2){
+                    dialog.alert({
+                        title:"提示",
+                        msg: "您输入的内容是："+ret.text,
+                        buttons:['确定']
+                    });
+                }
+            })
         });
         $(".answer-box").click(function () {
-//            if($("input[name='维修历史']:checked").length>0){
-//
-//            }
             var  input  = $(this).find("input")[0];
             if($(input).attr("type") == 'radio'){
                 $(input).attr("checked","true");

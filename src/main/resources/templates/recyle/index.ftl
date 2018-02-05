@@ -30,7 +30,7 @@
 </div>
 
 
-<section class="aui-content-padded aui-refresh-content"" id="hotProduct">
+<section class="aui-content-padded aui-refresh-content" id="searchProduct" hidden>
 <#--要搜索的内容为：<span class="aui-text-info" id="search-keywords"></span>-->
 
 
@@ -147,6 +147,7 @@
                         var defaultImage = 'http://img11.360buyimg.com/n2/jfs/t12730/306/1517709913/155178/f5e7e927/5a22acfaNf7222715.jpg!q95.jpg';
                         toast.hide();
                         var text = "";
+                        $("#search-keywords").html(keywords);
                         $.each(r.list,function(i,product){
                             $.each(product.prices,function(j,price){
                                 text += '<li class="aui-list-item aui-list-item-middle"><div class="aui-media-list-item-inner"><div class="aui-list-item-media" style="width: 3rem;">';
@@ -156,8 +157,16 @@
                                 text += '<div class="aui-list-item-right">已回收：100</div>';
                                 text += '</div><div class="aui-list-item-text">最高回收价格'+price.recoverPrice+'</div></div></div></li>';
                             })
-                        })
+                        });
+                        if(text  ==  ''){
+                            text = '    <li style="color: #7e7975;font-family:&quot;宋体&quot;;font-size:11px;">很抱歉，暂时没有发现“'+keywords+'”的产品。。</li>' +
+                                    '<li style="color: #7e7975;font-family: &quot;宋体&quot;;font-size: 11px;">请检查关键字或者联系我们的工作人员进行线下交流哦。</li>'+
+                                            '<li style="color: #7e7975;font-family: &quot;宋体&quot;;font-size: 11px;">联系方式:135912321321</li>' +
+                                    '<li style="color: #7e7975;font-family: &quot;宋体&quot;; font-size: 11px; ">门店地址:xx路xx号xxxx手机专卖店</li>';
+                        }
                         $("#searchResultBox").html(text);
+
+                        $("#searchProduct").show();
                         //重新绑定事件
                         initLiBindEvent();
                     }else{
@@ -179,7 +188,7 @@
     function initLiBindEvent() {
         $("li").click(function () {
             var priceId =  $(this).find("input[name='priceId']").val();
-            location.href = "/weixin/recyle/estimate"
+            location.href = "/weixin/recyle/estimate?priceId="+priceId;
         });
     }
 

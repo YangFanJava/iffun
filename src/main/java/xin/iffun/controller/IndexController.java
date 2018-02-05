@@ -1,12 +1,16 @@
 package xin.iffun.controller;
 
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import xin.iffun.service.TestService;
+import xin.iffun.service.WeixinUserService;
 
 import javax.annotation.Resource;
-import java.util.Random;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Created with IntelliJ IDEA
@@ -19,27 +23,35 @@ import java.util.Random;
 public class IndexController {
 
 
-    @RequestMapping("/index")
-    public String idnex(Model model){
-        model.addAttribute("test1","hello word1!!"+ new Random().nextInt(100));
-        return "recyle/index";
-    }
-
 
     @Resource
-    private TestService testService;
+    private WeixinUserService weixinUserService;
 
 
 
-    @RequestMapping("/test")
-    public String test(Model model){
+    @RequestMapping("/MP_verify_{randomCode}.txt")
+    public void auth(@PathVariable String randomCode, HttpServletResponse response) throws IOException {
+        InputStream is = this.getClass().getClassLoader().getResourceAsStream("MP_verify_" + randomCode+".txt");
+        response.setContentType("application/octet-stream");
+        response.addHeader("Content-Disposition", "attachment;filename="+randomCode+".txt");
+        response.setCharacterEncoding("utf-8");
+        IOUtils.copy(is,response.getOutputStream());
+    }
 
-        testService.test();
+
+
+
+
+
+    @RequestMapping("/index")
+    public String idnex(String code,String state,Model model){
+
+        Integer xx =weixinUserService.registerUser(code,state);
 
 
         return "recyle/index";
-//        return "test/test";
     }
+
 
 
 
