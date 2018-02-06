@@ -28,3 +28,16 @@ CREATE TABLE `user_info` (
   `create_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='用户详情表';
+
+
+
+CREATE TABLE `user_token` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `uid` varchar(255) DEFAULT NULL COMMENT '用户id',
+  `open_id` varchar(255) DEFAULT NULL COMMENT '用户唯一标识',
+  `token` varchar(36) DEFAULT NULL COMMENT '密钥',
+  `login_time` datetime DEFAULT NULL COMMENT '登陆时间 可更新',
+  `expend_time` int(11) DEFAULT 3600 COMMENT '持续时间 1天',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='用户账号表';

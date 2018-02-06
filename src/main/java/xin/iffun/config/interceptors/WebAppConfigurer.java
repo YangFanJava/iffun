@@ -7,6 +7,8 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import javax.annotation.Resource;
+
 /**
  * @Author:Easong
  * @Description:拦截器配置
@@ -16,10 +18,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Configuration
 public class WebAppConfigurer extends WebMvcConfigurerAdapter {
 
-    @Bean
-    public RequestInterceptor requestInterceptor(){
-        return new RequestInterceptor();
-    }
+//    @Bean
+//    public RequestInterceptor requestInterceptor(){
+//        return new RequestInterceptor();
+//    }
+    @Resource
+    private RequestInterceptor requestInterceptor;
+
+
+
     /**
      * 配置拦截器
      */
@@ -31,7 +38,7 @@ public class WebAppConfigurer extends WebMvcConfigurerAdapter {
         // excludePathPatterns 用户排除拦截
 
         // registry.addInterceptor(new AuthInterceptor()).addPathPatterns("/**");
-        registry.addInterceptor(requestInterceptor());
+        registry.addInterceptor(requestInterceptor);
     }
 
     @Override

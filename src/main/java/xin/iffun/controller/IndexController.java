@@ -62,15 +62,7 @@ public class IndexController {
 
     @RequestMapping("/weixin/index")
     public String idnex(String code,String state,Model model){
-
-
         _log.info("code {}",code);
-
-        if(StringUtils.isNotBlank(code)){
-            Integer xx =weixinUserService.registerUser(code,state);
-        }
-
-
         return "recyle/index";
     }
 

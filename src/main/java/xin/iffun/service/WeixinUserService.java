@@ -1,5 +1,7 @@
 package xin.iffun.service;
 
+import xin.iffun.entity.UserAuthLog;
+
 /**
  * Created with IntelliJ IDEA
  * Created By YangF
@@ -7,5 +9,9 @@ package xin.iffun.service;
  * Time: 17:58
  */
 public interface WeixinUserService {
-    Integer registerUser(String code, String state);
+    UserAuthLog registerUser(String code, String state);
+
+    Integer getUserInfo(String openid,String accessToken);
+
+    Boolean isLogin(String code);
 }

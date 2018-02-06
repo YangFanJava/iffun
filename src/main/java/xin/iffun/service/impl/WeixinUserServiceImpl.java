@@ -1,12 +1,13 @@
 package xin.iffun.service.impl;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
 import xin.iffun.entity.UserAuthLog;
 import xin.iffun.entity.UserInfo;
 import xin.iffun.mapper.UserAuthLogMapper;
@@ -16,6 +17,7 @@ import xin.iffun.util.HttpClientUtils;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA
@@ -46,64 +48,115 @@ public class WeixinUserServiceImpl implements WeixinUserService {
     private UserAuthLogMapper userAuthLogMapper;
 
 
+
+
     private Logger _log = LoggerFactory.getLogger(WeixinUserServiceImpl.class);
 
 
     @Override
-    public Integer registerUser(String code, String state) {
+    public UserAuthLog registerUser(String code, String state) {
 
         _log.info("CODE:{},state:{}",code,state);
 
         String s = userAccessToken.replaceAll("APPID", appid).replaceAll("SECRET", secret).replaceAll("CODE", code);
         //        https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code
         JSONObject object = HttpClientUtils.httpGet(s);
+        if (!object.containsKey("errcode")){
 
-
-        _log.info("access_token 返回值：{}",object.toString());
+            _log.info("access_token 返回值：{}",object.toString());
 //        { "access_token":"ACCESS_TOKEN",
 //                "expires_in":7200,
 //                "refresh_token":"REFRESH_TOKEN",
 //                "openid":"OPENID",
 //                "scope":"SCOPE" }
-        UserAuthLog log = new UserAuthLog();
-        log.setAccessToken(object.getString("access_token"));
-        log.setCreatetime(new Date());
-        log.setScope(object.getString("scope"));
-        log.setExpiresIn(object.getLong("expires_in").intValue());
-        log.setOpenid(object.getString("openid"));
-        log.setRefreshToken(object.getString("refresh_token"));
 
-        int i = userAuthLogMapper.insertSelective(log);
 
-        _log.info("存储 日志成功数：{}",i);
+            String openid = object.getString("openid");
+            Example example = new Example(UserAuthLog.class);
+            example.createCriteria().andEqualTo("openid",openid);
+            List<UserAuthLog> userAuthLogs = userAuthLogMapper.selectByExample(example);
 
-        String s1 = getUserInfoUrl.replaceAll("OPENID", log.getOpenid()).replaceAll("ACCESS_TOKEN", log.getAccessToken());
+            UserAuthLog log = null;
 
-        JSONObject userInfoObject = HttpClientUtils.httpGet(s1);
+            if (userAuthLogs == null || userAuthLogs.size() == 0){
+                log = new UserAuthLog();
+                log.setAccessToken(object.getString("access_token"));
 
-        _log.info("用户详情返回值:{}",userInfoObject.toString());
+                log.setCode(code);
 
-        UserInfo info = new UserInfo();
-        info.setOpenid(userInfoObject.getString("openid"));
-        info.setNickname(userInfoObject.getString("nickname"));
-        info.setSex(userInfoObject.getString("sex"));
-        info.setProvince(userInfoObject.getString("province"));
-        info.setCity(userInfoObject.getString("city"));
-        info.setCountry(userInfoObject.getString("country"));
-        info.setHeadimgurl(userInfoObject.getString("headimgurl"));
-        info.setUnionid(userInfoObject.getString("unionid"));
-        info.setCreateTime(new Date());
-        JSONArray array = userInfoObject.getJSONArray("privilege");
-        String o = array.size()>0?(String) array.stream().reduce((p1, p2) -> p1.toString() + "," + p2.toString()).get():"[]";
-        info.setPrivilege(o);
+                log.setCreatetime(new Date());
+                log.setScope(object.getString("scope"));
+                log.setExpiresIn(object.getLong("expires_in").intValue());
+                log.setOpenid(object.getString("openid"));
+                log.setRefreshToken(object.getString("refresh_token"));
 
-        int insert = userInfoMapper.insertSelective(info);
+                userAuthLogMapper.insertSelective(log);
+            }else{
+                log = userAuthLogs.get(0);
+                log.setCode(code);
+                log.setUpdatetime(new Date());
+                userAuthLogMapper.updateByPrimaryKeySelective(log);
+            }
 
-        _log.info("用户详情存储状态:{}",insert);
-        return insert;
+            getUserInfo(log.getOpenid(),log.getAccessToken());
+            return log;
+        }
+
+        _log.info("code码 错误：{}",object.toString());
+        return null;
     }
 
 
+
+    public Integer getUserInfo(String openid,String accessToken){
+        Integer result = 0;
+
+        Example example = new Example(UserInfo.class);
+        example.createCriteria().andEqualTo("openid",openid);
+        List<UserInfo> list = userInfoMapper.selectByExample(example);
+        if (list == null || list.size() == 0 ){
+
+            String s1 = getUserInfoUrl.replaceAll("OPENID", openid).replaceAll("ACCESS_TOKEN", accessToken);
+
+            JSONObject userInfoObject = HttpClientUtils.httpGet(s1);
+
+            _log.info("用户详情返回值:{}",userInfoObject.toString());
+
+            UserInfo info = new UserInfo();
+            info.setOpenid(userInfoObject.getString("openid"));
+            info.setNickname(userInfoObject.getString("nickname"));
+            info.setSex(userInfoObject.getString("sex"));
+            info.setProvince(userInfoObject.getString("province"));
+            info.setCity(userInfoObject.getString("city"));
+            info.setCountry(userInfoObject.getString("country"));
+            info.setHeadimgurl(userInfoObject.getString("headimgurl"));
+            info.setUnionid(userInfoObject.getString("unionid"));
+            info.setCreateTime(new Date());
+            JSONArray array = userInfoObject.getJSONArray("privilege");
+            String o = array.size()>0?(String) array.stream().reduce((p1, p2) -> p1.toString() + "," + p2.toString()).get():"[]";
+            info.setPrivilege(o);
+
+            result = userInfoMapper.insertSelective(info);
+        }
+        return result;
+    }
+
+    @Override
+    public Boolean isLogin(String code) {
+        Boolean fo = false;
+        if (StringUtils.isNotBlank(code)){
+            Example example = new Example(UserAuthLog.class);
+            example.createCriteria().andEqualTo("code",code);
+            List<UserAuthLog> logs = userAuthLogMapper.selectByExample(example);
+            if (logs!=null && logs.size()> 0){
+                Date date = logs.get(0).getUpdatetime();
+                if (System.currentTimeMillis() - date.getTime() < 1000 * 60 * 60 * 24){
+                    fo = true;
+                }
+            }
+        }
+        return fo;
+    }
 
 
 }

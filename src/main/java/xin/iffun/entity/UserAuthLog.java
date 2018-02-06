@@ -9,8 +9,12 @@ public class UserAuthLog {
      * 主键id
      */
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    /**
+     * code
+     */
+    private String code;
 
     /**
      * 用户唯一标识
@@ -66,6 +70,24 @@ public class UserAuthLog {
      */
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    /**
+     * 获取code
+     *
+     * @return code - code
+     */
+    public String getCode() {
+        return code;
+    }
+
+    /**
+     * 设置code
+     *
+     * @param code code
+     */
+    public void setCode(String code) {
+        this.code = code;
     }
 
     /**
