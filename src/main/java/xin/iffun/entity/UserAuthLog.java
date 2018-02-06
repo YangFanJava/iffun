@@ -9,7 +9,7 @@ public class UserAuthLog {
      * 主键id
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     /**

@@ -1,5 +1,6 @@
 package xin.iffun.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
@@ -52,6 +53,7 @@ public class WeixinUserServiceImpl implements WeixinUserService {
     public Integer registerUser(String code, String state) {
 
         _log.info("CODE:{},state:{}",code,state);
+
         String s = userAccessToken.replaceAll("APPID", appid).replaceAll("SECRET", secret).replaceAll("CODE", code);
         //        https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code
         JSONObject object = HttpClientUtils.httpGet(s);
@@ -71,7 +73,7 @@ public class WeixinUserServiceImpl implements WeixinUserService {
         log.setOpenid(object.getString("openid"));
         log.setRefreshToken(object.getString("refresh_token"));
 
-        int i = userAuthLogMapper.insert(log);
+        int i = userAuthLogMapper.insertSelective(log);
 
         _log.info("存储 日志成功数：{}",i);
 
@@ -92,14 +94,16 @@ public class WeixinUserServiceImpl implements WeixinUserService {
         info.setUnionid(userInfoObject.getString("unionid"));
         info.setCreateTime(new Date());
         JSONArray array = userInfoObject.getJSONArray("privilege");
-        String o = (String) array.stream().reduce((p1, p2) -> p1.toString() + "," + p2.toString()).get();
+        String o = array.size()>0?(String) array.stream().reduce((p1, p2) -> p1.toString() + "," + p2.toString()).get():"[]";
         info.setPrivilege(o);
 
-        int insert = userInfoMapper.insert(info);
+        int insert = userInfoMapper.insertSelective(info);
 
         _log.info("用户详情存储状态:{}",insert);
         return insert;
     }
+
+
 
 
 }
