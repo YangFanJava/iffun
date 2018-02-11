@@ -1,6 +1,7 @@
 
 CREATE TABLE `user_auth_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+    `code` varchar(100) NOT NULL COMMENT '用户唯一标识',
   `openid` varchar(100) NOT NULL COMMENT '用户唯一标识',
   `access_token` varchar(500) DEFAULT NULL COMMENT '用户凭证 结合expires_in使用 生效时间为update_time',
   `expires_in` int(11) DEFAULT 0 COMMENT 'access_token接口调用凭证超时时间，单位（秒）',
@@ -41,3 +42,29 @@ CREATE TABLE `user_token` (
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='用户账号表';
+
+
+
+CREATE TABLE `recyle_order` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `uid` int(11) NOT NULL COMMENT '下单用户',
+  `price_id` int(11) DEFAULT NULL COMMENT '回收手机类型',
+  `recyle_state` char(1) DEFAULT NULL COMMENT '回收进度 1 用户检测后回收中   5 回收中 6 回收结束未付款 7 回收结束已付款 订单结束',
+  `recyle_type` char(255) DEFAULT NULL COMMENT '回收类型  0 店铺回收 1 快递回收  2 上门回收 ',
+  `qa_user` varchar(255) DEFAULT '' COMMENT '回收问题 用户',
+  `qa_business` varchar(255) DEFAULT '' COMMENT '回收问题  商家重新测试',
+  `estimate_price_user` decimal(10,2) DEFAULT NULL COMMENT '回收价格 用户测算价格',
+  `is_auditing` char(1) DEFAULT NULL COMMENT '是否审核',
+  `auditing_price` decimal(10,2) DEFAULT NULL COMMENT '商家评估价格',
+  `pay_state` char(1) DEFAULT NULL COMMENT '支付状态  0 未支付  1 已支付',
+  `pay_type` char(1) DEFAULT NULL COMMENT '支付类型  1 微信  1 支付宝',
+  `pay_name` char(1) DEFAULT NULL COMMENT '支付名',
+  `pay_account` char(1) DEFAULT NULL COMMENT '支付名',
+  `user_name` varchar(50) DEFAULT NULL COMMENT '用户名称',
+  `user_phone` varchar(30) DEFAULT NULL COMMENT '用户联系方式',
+  `express_code` varchar(100) DEFAULT NULL COMMENT '快递单号',
+  `appointment_time` datetime DEFAULT NULL COMMENT '预约时间',
+  `create_time` datetime DEFAULT NULL COMMENT '订单创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '订单修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COMMENT='回收订单表';

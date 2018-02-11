@@ -7,6 +7,7 @@
     <title>诚信回收-手机选择</title>
     <!-- 引入 CSS -->
     <link media="all" href="/css/aui/aui.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/aui/aui-slide.css" />
 
     <style type="text/css">
         .aui-content-padded {
@@ -18,7 +19,7 @@
 </head>
 <body  >
 
-<div class="aui-searchbar" id="search">
+<div class="aui-searchbar" id="search" >
     <div class="aui-searchbar-input aui-border-radius">
         <i class="aui-iconfont aui-icon-search"></i>
         <input type="search" placeholder="请输入搜索内容" id="search-input">
@@ -28,6 +29,32 @@
     </div>
     <div class="aui-searchbar-btn" tapmode>取消</div>
 </div>
+<header class="aui-bar aui-bar-nav aui-bar-light" id="returnDiv" style="display: none;">
+    <a class="aui-pull-left aui-btn" href="javascript:location.reload();;">
+        <span class="aui-iconfont aui-icon-left"></span>返回
+    </a>
+    <div class="aui-title" >商品列表</div>
+</header>
+
+<section class="aui-content-padded"  id="bannerBox">
+    <div id="banner">
+        <div class="aui-slide-wrap" >
+            <div class="aui-slide-node bg-dark">
+                <img src="../../image/l1.png" />
+            </div>
+            <div class="aui-slide-node bg-dark">
+                <img src="../../image/l2.png" />
+            </div>
+            <div class="aui-slide-node bg-dark">
+                <img src="../../image/l3.png" />
+            </div>
+        </div>
+        <div class="aui-slide-page-wrap"><!--分页容器--></div>
+    </div>
+</section>
+
+
+
 
 
 <section class="aui-content-padded aui-refresh-content" id="searchProduct" hidden>
@@ -97,6 +124,7 @@
 </section>
 </body>
 <script type="text/javascript" src="/js/aui/api.js" ></script>
+<script type="text/javascript" src="/js/aui/aui-slide.js"></script>
 <script type="text/javascript" src="/js/aui/aui-toast.js" ></script>
 <!-- 引入 JS -->
 <script src="/js/jquery.min.js"></script>
@@ -143,6 +171,12 @@
                 duration:2000
             },function(ret){
                 $.post("/weixin/phone/byName",{ "keyword":keywords },function (r) {
+                    //隐藏搜索框  显示返回页
+                    $("#search").hide();
+                    $("#returnDiv").show();
+                    $("#bannerBox").hide();
+
+
                     if(r.code == '0'){
                         var defaultImage = 'http://img11.360buyimg.com/n2/jfs/t12730/306/1517709913/155178/f5e7e927/5a22acfaNf7222715.jpg!q95.jpg';
                         toast.hide();
@@ -195,5 +229,18 @@
 
     initLiBindEvent();
 
+
+
+    var slide3 = new auiSlide({
+        container:document.getElementById("banner"),
+        // "width":300,
+        "height":180,
+        "speed":500,
+        "autoPlay": 3000, //自动播放
+        "loop":true,
+        "pageShow":true,
+        "pageStyle":'line',
+        'dotPosition':'center'
+    })
 
 </script>

@@ -12,15 +12,24 @@
         .aui-card-list-header{
             border-bottom: 0.1rem solid #F5F5F5;
         }
+        .aui-list label {
+            font-size: 14px;
+        }
     </style>
 </head>
 <body  >
+<header class="aui-bar aui-bar-nav aui-bar-light" id="returnDiv">
+    <a class="aui-pull-left aui-btn" href="javascript:location.reload();;">
+        <span class="aui-iconfont aui-icon-left"></span>返回
+    </a>
+    <div class="aui-title" >诚信回收</div>
+</header>
 <header class="aui-bar aui-bar-nav aui-bar-light"  style="border-bottom: 1rem solid #f5f5f5" >
      <div class="aui-media-list-item-inner" style="height: 5rem">
          <ul class="aui-list aui-media-list" >
              <li class="aui-list-item aui-list-item-middle">
                  <div class="aui-media-list-item-inner">
-                     <div class="aui-list-item-media" style="width: 3rem;">
+                     <div class="aui-list-item-media" style="width: 3rem;     padding-right: 0.10rem;">
                          <#list product.images?split(",") as img>
                              <#if img_index == 0>
                                  <#--<img    src="${img}"  style="width:2.2rem;left: 0.3rem">-->
@@ -32,10 +41,20 @@
 
                      <#list product.prices as price>
                          <div class="aui-list-item-text">
-                             <div class="aui-list-item-title aui-font-size-14">${price.version}</div>
-                             <div class="aui-list-item-right">已回收:100台</div>
+                             <input type="hidden" name="priceId"       id="priceId"       value="${price.id}"/>
+                             <input type="hidden" name="recoverPrice"  id="recoverPrice"  value="${price.recoverPrice?c}"/>
+                             <input type="hidden" name="version"       id="version"       value="${price.version}"/>
+                             <div class="aui-list-item-title aui-font-size-14 aui-ellipsis-1">
+                                 <#if price.version?length gt 20>
+                                    ${price.version?substring(0,17)}...
+                                 <#else>
+                                    ${price.version}
+                                 </#if>
+
+                             </div>
+                             <div class="aui-list-item-right  aui-ellipsis-1" >已回收:100台</div>
                          </div>
-                         <div class="aui-list-item-text">
+                         <div class="aui-list-item-text" style="font-size: 11px">
                              最高交易价格:${price.recoverPrice}
                          </div>
                      </#list>
@@ -51,19 +70,22 @@
 <form id="qa">
 <#list qaVo as question>
     <div class="aui-card-list" >
-        <div class="aui-card-list-header">
-            ${question_index+1}  ${question.questionInfo}
-        </div>
+        <#--<div class="aui-card-list-header">-->
+            <#--${question_index+1}  ${question.questionInfo}-->
+        <#--</div>-->
         <div class="aui-card-list-content">
-            <ul class="aui-list aui-select-list">
+            <ul class="aui-list aui-select-list qa-box">
+                <li class="aui-list-item answer-box" style="line-height: 44px">
+                        ${question_index+1}  ${question.questionInfo}
+                </li>
                 <#list question.answers as answer>
                     <li class="aui-list-item answer-box">
-                        <div class="aui-list-item-input">
+                        <div class="aui-list-item-input" style="line-height: 44px">
                             <label>
                                 <#if question.isMulti == 1>
-                                    <input  class="aui-checkbox"   type="checkbox" name="${question.questionInfo}" value="${answer.score}">
+                                    <input  class="aui-checkbox"  style="width: 1em;height: 1em;top: 13px"  type="checkbox" name="${question.questionInfo}" id="${answer.id}" value="${answer.score}">
                                 <#else>
-                                    <input  class="aui-radio"  type="radio" name="${question.questionInfo}" value="${answer.score}">
+                                    <input  class="aui-radio"   style="width: 1em;height: 1em;top: 13px" type="radio" name="${question.questionInfo}" id="${answer.id}" value="${answer.score}">
                                 </#if>
                                 ${answer.answerInfo}
                             </label>
@@ -86,6 +108,13 @@
     </div>
 </div>
 
+<div >
+
+
+
+
+</div>
+
 
 </body>
 <script type="text/javascript" src="/js/aui/api.js" ></script>
@@ -100,20 +129,30 @@
     var dialog = new auiDialog({})
     $(function () {
         $("#submitbtn").click(function () {
-            console.info($("#qa").serialize());
-            dialog.prompt({
-                title:"弹出提示",
-                text:'默认内容',
-                buttons:['取消','确定']
-            },function(ret){
-                if(ret.buttonIndex == 2){
+
+            $.each($("#qa .qa-box"),function(i,e){
+                if($(e).find("input[type='radio']").length>0&&$(e).find(":checked").length == 0){
                     dialog.alert({
-                        title:"提示",
-                        msg: "您输入的内容是："+ret.text,
-                        buttons:['确定']
-                    });
+                                title:"提示",
+                                msg: "除了额外信息，所有的问题都要选择一个答案哦~",
+                                buttons:['我知道啦！']
+                            });
+                    return false;
                 }
             })
+
+
+
+            var  priceId = $("#priceId").val();
+            var  recoverPrice = $("#recoverPrice").val();
+            var qaIds = [];
+            var sroce = 0;
+            $("#qa  input:checked").each(function (i,e) {
+                qaIds.push($(e).attr("id"));
+                sroce += parseInt($(e).val());
+            })
+
+            location.href= "/weixin/recyle/order?priceId="+priceId +"&qaIds="+qaIds.join(",")+"&recoverPrice="+recoverPrice + "&score="+sroce;
         });
         $(".answer-box").click(function () {
             var  input  = $(this).find("input")[0];

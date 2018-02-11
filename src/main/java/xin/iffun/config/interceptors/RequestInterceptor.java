@@ -44,39 +44,40 @@ public class RequestInterceptor implements HandlerInterceptor{
         long startTime = System.currentTimeMillis();
         request.setAttribute("startTime", startTime);
 
-
-//        if (request.getRequestURI().contains())
-
-
-        //请求拦截  判断是否登陆
-
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null && cookies.length > 0){
-            for (Cookie cookie:cookies) {
-                if("token".equals(cookie.getName())){
-                    String code = cookie.getValue();
-                    if (weixinUserService.isLogin(code)){
-                        return true;
-                    }
-                }
-            }
-        }
-
-        String code = request.getParameter("code");
-        if (StringUtils.isNotBlank(code)){
-            UserAuthLog log = weixinUserService.registerUser(code, null);
-            if (log!=null){
-                Cookie cookie = new Cookie("token",log.getCode());
-                response.addCookie(cookie);
-                return true;
-            }
-        }
-
-        response.setContentType("text/xml; charset=utf-8");
-        response.setCharacterEncoding("utf-8");
-        response.setStatus(200);
-        response.getWriter().write("No permission error　！！");
-        return false;
+        return  true;
+//
+////        if (request.getRequestURI().contains())
+//
+//
+//        //请求拦截  判断是否登陆
+//
+//        Cookie[] cookies = request.getCookies();
+//        if (cookies != null && cookies.length > 0){
+//            for (Cookie cookie:cookies) {
+//                if("token".equals(cookie.getName())){
+//                    String code = cookie.getValue();
+//                    if (weixinUserService.isLogin(code)){
+//                        return true;
+//                    }
+//                }
+//            }
+//        }
+//
+//        String code = request.getParameter("code");
+//        if (StringUtils.isNotBlank(code)){
+//            UserAuthLog log = weixinUserService.registerUser(code, null);
+//            if (log!=null){
+//                Cookie cookie = new Cookie("token",log.getCode());
+//                response.addCookie(cookie);
+//                return true;
+//            }
+//        }
+//
+//        response.setContentType("text/xml; charset=utf-8");
+//        response.setCharacterEncoding("utf-8");
+//        response.setStatus(200);
+//        response.getWriter().write("No permission error　！！");
+//        return false;
     }
 
     /**
