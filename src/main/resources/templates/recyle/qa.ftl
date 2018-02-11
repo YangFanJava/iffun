@@ -15,6 +15,20 @@
         .aui-list label {
             font-size: 14px;
         }
+        .aui-bar-light {
+            color: #009688;
+        }
+        .aui-bar-nav.aui-bar-light .aui-iconfont {
+            color: #009688;
+        }
+        .aui-btn-info.aui-btn-outlined {
+            color: #009688 !important;
+            border: 1px solid #009688!important;
+        }
+        .aui-radio:checked, .aui-radio.aui-checked, .aui-checkbox:checked, .aui-checkbox.aui-checked {
+            background-color: #009688;
+            border: solid 1px #009688;
+        }
     </style>
 </head>
 <body  >
@@ -26,7 +40,7 @@
 </header>
 <header class="aui-bar aui-bar-nav aui-bar-light"  style="border-bottom: 1rem solid #f5f5f5" >
      <div class="aui-media-list-item-inner" style="height: 5rem">
-         <ul class="aui-list aui-media-list" >
+         <ul class="aui-list aui-media-list" style="width: 100%;" >
              <li class="aui-list-item aui-list-item-middle">
                  <div class="aui-media-list-item-inner">
                      <div class="aui-list-item-media" style="width: 3rem;     padding-right: 0.10rem;">

@@ -15,14 +15,26 @@
             background-color: #ffffff;
             margin-top: 0.75rem;
         }
+        .aui-text-info {
+            color: #009688 !important;
+        }
+        .aui-bar-nav.aui-bar-light .aui-iconfont {
+            color: #009688;
+        }
+        .aui-bar-light {
+            color: #009688;
+        }
+        .aui-text-danger {
+            color: #009688 !important;
+        }
     </style>
 </head>
 <body  >
 
 <div class="aui-searchbar" id="search" >
-    <div class="aui-searchbar-input aui-border-radius">
-        <i class="aui-iconfont aui-icon-search"></i>
-        <input type="search" placeholder="请输入搜索内容" id="search-input">
+    <div class="aui-searchbar-input aui-border-radius" style="margin: 0 0.7rem;"  >
+        <i class="aui-iconfont aui-icon-search" ></i>
+        <input type="search" placeholder="请输入搜索内容"  id="search-input">
         <div class="aui-searchbar-clear-btn">
             <i class="aui-iconfont aui-icon-close"></i>
         </div>
@@ -65,7 +77,8 @@
         <div class="aui-card-list-header">
             <div>
                 <i class="aui-iconfont aui-icon-mobile aui-text-danger"></i>
-                <span class="aui-text-danger">有关"<span style="color: red" id="search-keywords"></span>"的商品</span>
+                <#--<span class="aui-text-danger">有关"<span style="color: red" id="search-keywords"></span>"的商品</span>-->
+                <span class="aui-text-danger">有关"<span style="color: #009688" id="search-keywords"></span>"的商品</span>
             </div>
             <i class="aui-iconfont aui-icon-more"></i>
         </div>
