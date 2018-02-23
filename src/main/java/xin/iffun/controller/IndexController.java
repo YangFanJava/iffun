@@ -8,12 +8,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import xin.iffun.entity.vo.ProductVo;
+import xin.iffun.service.PhoneService;
 import xin.iffun.service.WeixinUserService;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA
@@ -58,11 +61,20 @@ public class IndexController {
 
 
 
+    @Resource
+    private PhoneService phoneService;
+
+
 
 
     @RequestMapping("/weixin/index")
     public String idnex(String code,String state,Model model){
         _log.info("code {}",code);
+        List<ProductVo> hotPhoneRank = phoneService.selectHotList(0, 10);
+
+        model.addAttribute("hot",hotPhoneRank);
+        model.addAttribute("defaultImage","http://img11.360buyimg.com/n2/jfs/t12730/306/1517709913/155178/f5e7e927/5a22acfaNf7222715.jpg!q95.jpg");
+
         return "recyle/index";
     }
 

@@ -28,7 +28,7 @@
                              type="XMLMAPPER"/>
 
 
-        <table tableName="user_auth_log"  >
+        <table tableName="recyle_order"  >
             <!--mysql 配置-->
             <!--oracle 配置-->
             <!--<generatedKey column="id" sqlStatement="select SEQ_{1}.nextval from dual" identity="false" type="pre"/>-->

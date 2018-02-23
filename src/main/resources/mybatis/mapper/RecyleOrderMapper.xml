@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xin.iffun.mapper.RecyleOrderMapper">
+  <resultMap id="BaseResultMap" type="xin.iffun.entity.RecyleOrder">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="uid" jdbcType="INTEGER" property="uid" />
+    <result column="price_id" jdbcType="INTEGER" property="priceId" />
+    <result column="recyle_state" jdbcType="CHAR" property="recyleState" />
+    <result column="recyle_type" jdbcType="CHAR" property="recyleType" />
+    <result column="qa_user" jdbcType="VARCHAR" property="qaUser" />
+    <result column="qa_business" jdbcType="VARCHAR" property="qaBusiness" />
+    <result column="estimate_price_user" jdbcType="DECIMAL" property="estimatePriceUser" />
+    <result column="is_auditing" jdbcType="CHAR" property="isAuditing" />
+    <result column="auditing_price" jdbcType="DECIMAL" property="auditingPrice" />
+    <result column="pay_state" jdbcType="CHAR" property="payState" />
+    <result column="pay_type" jdbcType="CHAR" property="payType" />
+    <result column="pay_name" jdbcType="CHAR" property="payName" />
+    <result column="pay_account" jdbcType="CHAR" property="payAccount" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_phone" jdbcType="VARCHAR" property="userPhone" />
+    <result column="express_code" jdbcType="VARCHAR" property="expressCode" />
+    <result column="appointment_address" jdbcType="VARCHAR" property="appointmentAddress" />
+    <result column="appointment_time" jdbcType="TIMESTAMP" property="appointmentTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+</mapper>

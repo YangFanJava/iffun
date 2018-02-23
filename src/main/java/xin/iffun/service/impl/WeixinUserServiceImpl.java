@@ -16,6 +16,7 @@ import xin.iffun.service.WeixinUserService;
 import xin.iffun.util.HttpClientUtils;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 
@@ -85,6 +86,7 @@ public class WeixinUserServiceImpl implements WeixinUserService {
                 log.setCode(code);
 
                 log.setCreatetime(new Date());
+                log.setUpdatetime(new Date());
                 log.setScope(object.getString("scope"));
                 log.setExpiresIn(object.getLong("expires_in").intValue());
                 log.setOpenid(object.getString("openid"));
@@ -108,6 +110,7 @@ public class WeixinUserServiceImpl implements WeixinUserService {
 
 
 
+    @Override
     public Integer getUserInfo(String openid,String accessToken){
         Integer result = 0;
 
@@ -142,8 +145,9 @@ public class WeixinUserServiceImpl implements WeixinUserService {
     }
 
     @Override
-    public Boolean isLogin(String code) {
-        Boolean fo = false;
+    public UserAuthLog isLogin(String code) {
+//        Boolean fo = false;
+        UserAuthLog authLog = null;
         if (StringUtils.isNotBlank(code)){
             Example example = new Example(UserAuthLog.class);
             example.createCriteria().andEqualTo("code",code);
@@ -151,12 +155,23 @@ public class WeixinUserServiceImpl implements WeixinUserService {
             if (logs!=null && logs.size()> 0){
                 Date date = logs.get(0).getUpdatetime();
                 if (System.currentTimeMillis() - date.getTime() < 1000 * 60 * 60 * 24){
-                    fo = true;
+//                    fo = true;
+                   authLog = logs.get(0);
                 }
             }
         }
-        return fo;
+        return authLog;
     }
 
+    @Override
+    public UserInfo selectUserInfoByOpenId(String openid) {
+        List<UserInfo> userInfos = null;
+        if (StringUtils.isNotBlank(openid)){
+            Example example = new Example(UserInfo.class);
+            example.createCriteria().andEqualTo(openid);
+            userInfos = userInfoMapper.selectByExample(example);
+        }
+        return userInfos!=null && userInfos.size()>0?userInfos.get(0):null;
+    }
 
 }

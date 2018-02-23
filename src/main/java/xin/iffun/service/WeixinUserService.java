@@ -1,6 +1,8 @@
 package xin.iffun.service;
 
 import xin.iffun.entity.UserAuthLog;
+import xin.iffun.entity.UserInfo;
+
 
 /**
  * Created with IntelliJ IDEA
@@ -13,5 +15,8 @@ public interface WeixinUserService {
 
     Integer getUserInfo(String openid,String accessToken);
 
-    Boolean isLogin(String code);
+    UserAuthLog isLogin(String code);
+
+    UserInfo selectUserInfoByOpenId(String openid);
+
 }

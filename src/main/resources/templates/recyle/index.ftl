@@ -48,17 +48,17 @@
     <div class="aui-title" >商品列表</div>
 </header>
 
-<section class="aui-content-padded"  id="bannerBox">
+<section class="aui-content-padded"  id="bannerBox" style="padding: 0rem">
     <div id="banner">
         <div class="aui-slide-wrap" >
             <div class="aui-slide-node bg-dark">
-                <img src="../../image/l1.png" />
+                <img src="http://imgsrc.baidu.com/forum/pic/item/acaf2edda3cc7cd92649c2f93501213fb80e91ae.jpg" />
             </div>
             <div class="aui-slide-node bg-dark">
-                <img src="../../image/l2.png" />
+                <img src="http://imgsrc.baidu.com/forum/pic/item/acaf2edda3cc7cd92649c2f93501213fb80e91ae.jpg" />
             </div>
             <div class="aui-slide-node bg-dark">
-                <img src="../../image/l3.png" />
+                <img src="http://imgsrc.baidu.com/forum/pic/item/acaf2edda3cc7cd92649c2f93501213fb80e91ae.jpg" />
             </div>
         </div>
         <div class="aui-slide-page-wrap"><!--分页容器--></div>
@@ -102,32 +102,37 @@
         </div>
         <div class="aui-card-list-content">
             <ul class="aui-list aui-media-list" >
-                <li class="aui-list-item aui-list-item-middle">
-                    <div class="aui-media-list-item-inner">
-                        <div class="aui-list-item-media" style="width: 3rem;">
-                            <img src="http://img11.360buyimg.com/n2/jfs/t12730/306/1517709913/155178/f5e7e927/5a22acfaNf7222715.jpg!q95.jpg" >
-                        </div>
-                        <div class="aui-list-item-inner aui-list-item-arrow">
-                            <div class="aui-list-item-text">
-                                <div class="aui-list-item-title aui-font-size-14">AUI</div>
-                                <div class="aui-list-item-right">08:00</div>
+                <#list hot as hotPhone>
+                    <#list hotPhone.prices as price >
+                        <li class="aui-list-item aui-list-item-middle">
+                            <div class="aui-media-list-item-inner">
+                                <div class="aui-list-item-media" style="width: 3rem;">
+                                    <#if price.image?default("")?trim?length gt 1>
+                                        <img src="${price.image}" >
+                                    <#elseif hotPhone.iamges?default("")?trim?length gt 1>
+                                        <#list hotPhone.iamges?split(",") as name>
+                                            <#if name_index == 0 >
+                                                <img src="${name}" >
+                                            </#if>
+                                        </#list>
+                                    <#else>
+                                        <img src="${defaultImage}">
+                                    </#if>
+                                </div>
+                                <div class="aui-list-item-inner aui-list-item-arrow">
+                                    <div class="aui-list-item-text">
+                                        <input name="priceId" hidden value="${price.id}" >
+                                        <div class="aui-list-item-title aui-font-size-14 aui-ellipsis-1 " style="width: 60%">${price.version}</div>
+                                        <div class="aui-list-item-right">已回收100</div>
+                                    </div>
+                                    <div class="aui-list-item-text">
+                                        最高回收价格 ${price.recoverPrice}
+                                    </div>
+                                </div>
                             </div>
-                            <div class="aui-list-item-text">
-                                www.auicss.com
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="aui-list-item aui-list-item-middle">
-                    <div class="aui-media-list-item-inner">
-                        <div class="aui-list-item-media" style="width: 3rem;">
-                            <img src="http://img11.360buyimg.com/n2/jfs/t12730/306/1517709913/155178/f5e7e927/5a22acfaNf7222715.jpg!q95.jpg" >
-                        </div>
-                        <div class="aui-list-item-inner aui-list-item-arrow">
-                            iphoneX
-                        </div>
-                    </div>
-                </li>
+                        </li>
+                    </#list>
+                </#list>
             </ul>
         </div>
         <div class="aui-card-list-footer aui-text-center">
@@ -191,7 +196,7 @@
 
 
                     if(r.code == '0'){
-                        var defaultImage = 'http://img11.360buyimg.com/n2/jfs/t12730/306/1517709913/155178/f5e7e927/5a22acfaNf7222715.jpg!q95.jpg';
+                        var defaultImage = '${defaultImage}';
                         toast.hide();
                         var text = "";
                         $("#search-keywords").html(keywords);
@@ -200,8 +205,9 @@
                                 text += '<li class="aui-list-item aui-list-item-middle"><div class="aui-media-list-item-inner"><div class="aui-list-item-media" style="width: 3rem;">';
                                 text += '<input name="priceId" hidden value="'+price.id+'" >'
                                 text += '<img src="'+(price.image?price.image:(product.images?product.images.split(",")[0]:defaultImage)) + '" ></div><div class="aui-list-item-inner aui-list-item-arrow"><div class="aui-list-item-text">';
-                                text += '<div class="aui-list-item-title aui-font-size-14">'+(price.version.length>9?(price.version.slice(0,9)+'...'):price.version)+'</div>';
-                                text += '<div class="aui-list-item-right">已回收：100</div>';
+                                text += '<div class="aui-list-item-title aui-font-size-14 aui-ellipsis-1" style="width: 60%">'+price.version+'</div>';
+//                                +(price.version.length>9?(price.version.slice(0,9)+'...'):price.version)
+                                text += '<div class="aui-list-item-right">已回收100</div>';
                                 text += '</div><div class="aui-list-item-text">最高回收价格'+price.recoverPrice+'</div></div></div></li>';
                             })
                         });

@@ -29,11 +29,12 @@
             background-color: #009688;
             border: solid 1px #009688;
         }
+
     </style>
 </head>
 <body  >
 <header class="aui-bar aui-bar-nav aui-bar-light" id="returnDiv">
-    <a class="aui-pull-left aui-btn" href="javascript:location.reload();;">
+    <a class="aui-pull-left aui-btn" href="/weixin/index">
         <span class="aui-iconfont aui-icon-left"></span>返回
     </a>
     <div class="aui-title" >诚信回收</div>
@@ -55,7 +56,7 @@
 
                      <#list product.prices as price>
                          <div class="aui-list-item-text">
-                             <input type="hidden" name="priceId"       id="priceId"       value="${price.id}"/>
+                             <input type="hidden" name="priceId"       id="priceId"       value="${price.id?c}"/>
                              <input type="hidden" name="recoverPrice"  id="recoverPrice"  value="${price.recoverPrice?c}"/>
                              <input type="hidden" name="version"       id="version"       value="${price.version}"/>
                              <div class="aui-list-item-title aui-font-size-14 aui-ellipsis-1">
@@ -97,9 +98,17 @@
                         <div class="aui-list-item-input" style="line-height: 44px">
                             <label>
                                 <#if question.isMulti == 1>
-                                    <input  class="aui-checkbox"  style="width: 1em;height: 1em;top: 13px"  type="checkbox" name="${question.questionInfo}" id="${answer.id}" value="${answer.score}">
+                                    <#if qaIds?? &&  qaIds?seq_contains(answer.id?c)>
+                                        <input checked  class="aui-checkbox"  style="width: 1em;height: 1em;top: 13px"  type="checkbox" name="${question.questionInfo}" id="${answer.id}" value="${answer.score}">
+                                    <#else>
+                                        <input  class="aui-checkbox"  style="width: 1em;height: 1em;top: 13px"  type="checkbox" name="${question.questionInfo}" id="${answer.id}" value="${answer.score}">
+                                    </#if>
                                 <#else>
-                                    <input  class="aui-radio"   style="width: 1em;height: 1em;top: 13px" type="radio" name="${question.questionInfo}" id="${answer.id}" value="${answer.score}">
+                                    <#if qaIds?? && qaIds?seq_contains(answer.id?c)>
+                                        <input checked  class="aui-radio"   style="width: 1em;height: 1em;top: 13px" type="radio" name="${question.questionInfo}" id="${answer.id}" value="${answer.score}">
+                                    <#else>
+                                        <input  class="aui-radio"   style="width: 1em;height: 1em;top: 13px" type="radio" name="${question.questionInfo}" id="${answer.id}" value="${answer.score}">
+                                    </#if>
                                 </#if>
                                 ${answer.answerInfo}
                             </label>
@@ -144,29 +153,31 @@
     $(function () {
         $("#submitbtn").click(function () {
 
+            var bo = true;
             $.each($("#qa .qa-box"),function(i,e){
                 if($(e).find("input[type='radio']").length>0&&$(e).find(":checked").length == 0){
                     dialog.alert({
                                 title:"提示",
-                                msg: "除了额外信息，所有的问题都要选择一个答案哦~",
+                                msg: "请您填全信息哦~",
                                 buttons:['我知道啦！']
                             });
-                    return false;
+                    bo =  false;
                 }
             })
 
+            if(bo){
+                var  priceId = $("#priceId").val();
+                var  recoverPrice = $("#recoverPrice").val();
+                var qaIds = [];
+                var sroce = 0;
+                $("#qa  input:checked").each(function (i,e) {
+                    qaIds.push($(e).attr("id"));
+                    sroce += parseInt($(e).val());
+                })
 
+                location.href= "/weixin/recyle/order?priceId="+priceId +"&qaIds="+qaIds.join(",")+"&recoverPrice="+recoverPrice + "&score="+sroce;
 
-            var  priceId = $("#priceId").val();
-            var  recoverPrice = $("#recoverPrice").val();
-            var qaIds = [];
-            var sroce = 0;
-            $("#qa  input:checked").each(function (i,e) {
-                qaIds.push($(e).attr("id"));
-                sroce += parseInt($(e).val());
-            })
-
-            location.href= "/weixin/recyle/order?priceId="+priceId +"&qaIds="+qaIds.join(",")+"&recoverPrice="+recoverPrice + "&score="+sroce;
+            }
         });
         $(".answer-box").click(function () {
             var  input  = $(this).find("input")[0];

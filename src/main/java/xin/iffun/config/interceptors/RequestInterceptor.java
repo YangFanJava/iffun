@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import xin.iffun.entity.UserAuthLog;
+import xin.iffun.entity.UserInfo;
 import xin.iffun.service.WeixinUserService;
 
 import javax.annotation.Resource;
@@ -45,18 +46,24 @@ public class RequestInterceptor implements HandlerInterceptor{
         request.setAttribute("startTime", startTime);
 
         return  true;
-//
-////        if (request.getRequestURI().contains())
-//
-//
-//        //请求拦截  判断是否登陆
+
+//     if (request.getRequestURI().contains())
+
+
+// //      请求拦截  判断是否登陆
 //
 //        Cookie[] cookies = request.getCookies();
 //        if (cookies != null && cookies.length > 0){
 //            for (Cookie cookie:cookies) {
 //                if("token".equals(cookie.getName())){
 //                    String code = cookie.getValue();
-//                    if (weixinUserService.isLogin(code)){
+//                    UserAuthLog userLog = weixinUserService.isLogin(code);
+//                    if (userLog!=null){
+//                        //固定几个接口需要放置userInfo对象
+//                        if (request.getRequestURI().contains("/weixin/recyle/createOrder")){
+//                            UserInfo info = weixinUserService.selectUserInfoByOpenId(userLog.getOpenid());
+//                            request.setAttribute("userInfo",info);
+//                        }
 //                        return true;
 //                    }
 //                }
