@@ -31,8 +31,8 @@
 </head>
 <body  >
 
-<div class="aui-searchbar" id="search" >
-    <div class="aui-searchbar-input aui-border-radius" style="margin: 0 0.7rem;"  >
+<div class="aui-searchbar" id="search" style="    background-color: #f5f5f5;" >
+    <div class="aui-searchbar-input aui-border-radius" style="margin: 0 0.8rem;"  >
         <i class="aui-iconfont aui-icon-search" ></i>
         <input type="search" placeholder="请输入搜索内容"  id="search-input">
         <div class="aui-searchbar-clear-btn">
@@ -92,7 +92,7 @@
     </div>
 </section>
 
-<section class="aui-content-padded" >
+<section class="aui-content-padded" style="    padding: 0.5rem 0.1rem 0rem;" >
     <div class="aui-card-list" id="searchProduct">
         <div class="aui-card-list-header">
             <div>
@@ -136,10 +136,62 @@
             </ul>
         </div>
         <div class="aui-card-list-footer aui-text-center">
-            查看更多
+            <p  onclick="getMorePhone">
+                查看更多
+            </p>
         </div>
     </div>
 </section>
+
+<section class="aui-content-padded"  style="     padding: 0.5rem 0.1rem 0rem;">
+
+    <div class="aui-card-list" id="searchProduct">
+        <div class="aui-card-list-header">
+            <div>
+                <i class="aui-iconfont aui-icon-comment aui-text-danger"></i>
+                <span class="aui-text-danger">最新评论</span></div>
+            <i class="aui-iconfont aui-icon-more"></i>
+        </div>
+        <div class="aui-card-list-content "  id="aui-slide2">
+            <div class="aui-slide-wrap">
+                <#list comments as com>
+                    <div class="aui-slide-node aui-slide-node-middle aui-slide-node-center">
+                    <div class="aui-card-list" style="    width: 100%;
+                                                                height: 100%;
+                                                                margin: 0px;
+                                                                padding: 0px;">
+                        <div class="aui-card-list-header aui-card-list-user aui-border-b">
+                            <div class="aui-card-list-user-avatar">
+                                <img src="http://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJmSEccyuUB9DxNMia4U8C7QQia8ebl6Qt3tXj6ibWMf4hWrJYhkKkVHBNHhpq453QQRJ0B4mtmMHOKQ/132" class="aui-img-round" />
+                            </div>
+                            <div class="aui-card-list-user-name">
+                                <div>${com.userName?substring(0,1)}***</div>
+                                <small>${com.createtime?string("yyyy-MM-dd HH:mm:ss")}</small>
+                            </div>
+                            <div class="aui-card-list-user-info">${com.userAddress}</div>
+                        </div>
+                        <div class="aui-card-list-content-padded" style="    height: 150px;">
+                            ${com.text}
+                        </div>
+                        <div class="aui-card-list-footer aui-row-padded" style="     position: absolute;  width: 100%;   bottom: 0.3rem;">
+                            <div class="aui-col-xs-8">
+                                通过
+                            ${com.recyleType}
+                                回收
+                            </div>
+                            <div class="aui-col-xs-4">
+                                <img style="height: 1.0rem;width: 0.9rem;display: inline;vertical-align: middle;" src="${com.productImage}">
+                                ${com.productName}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </#list>
+            </div>
+        </div>
+    </div>
+</section>
+
 </body>
 <script type="text/javascript" src="/js/aui/api.js" ></script>
 <script type="text/javascript" src="/js/aui/aui-slide.js"></script>
@@ -259,6 +311,18 @@
         "loop":true,
         "pageShow":true,
         "pageStyle":'line',
+        'dotPosition':'center'
+    })
+
+    var slide2 = new auiSlide({
+        container:document.getElementById("aui-slide2"),
+        // "width":300,
+        "height":240,
+        "speed":300,
+        "autoPlay": 0, //自动播放
+        "pageShow":false,
+        "loop":true,
+        "pageStyle":'dot',
         'dotPosition':'center'
     })
 

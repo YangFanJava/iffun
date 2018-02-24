@@ -8,7 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import xin.iffun.entity.OrderComment;
 import xin.iffun.entity.vo.ProductVo;
+import xin.iffun.service.CommentService;
 import xin.iffun.service.PhoneService;
 import xin.iffun.service.WeixinUserService;
 
@@ -65,6 +67,10 @@ public class IndexController {
     private PhoneService phoneService;
 
 
+    @Resource
+    private CommentService commentService;
+
+
 
 
     @RequestMapping("/weixin/index")
@@ -72,6 +78,12 @@ public class IndexController {
         _log.info("code {}",code);
         List<ProductVo> hotPhoneRank = phoneService.selectHotList(0, 10);
 
+
+        List<OrderComment> comments = commentService.selectShowComment(0,10);
+
+
+
+        model.addAttribute("comments",comments);
         model.addAttribute("hot",hotPhoneRank);
         model.addAttribute("defaultImage","http://img11.360buyimg.com/n2/jfs/t12730/306/1517709913/155178/f5e7e927/5a22acfaNf7222715.jpg!q95.jpg");
 

@@ -55,7 +55,7 @@ public class WeixinUserServiceImpl implements WeixinUserService {
 
 
     @Override
-    public UserAuthLog registerUser(String code, String state) {
+    public UserInfo registerUser(String code, String state) {
 
         _log.info("CODE:{},state:{}",code,state);
 
@@ -100,8 +100,8 @@ public class WeixinUserServiceImpl implements WeixinUserService {
                 userAuthLogMapper.updateByPrimaryKeySelective(log);
             }
 
-            getUserInfo(log.getOpenid(),log.getAccessToken());
-            return log;
+            UserInfo info = getUserInfo(log.getOpenid(),log.getAccessToken());
+            return info;
         }
 
         _log.info("code码 错误：{}",object.toString());
@@ -111,12 +111,13 @@ public class WeixinUserServiceImpl implements WeixinUserService {
 
 
     @Override
-    public Integer getUserInfo(String openid,String accessToken){
-        Integer result = 0;
+    public UserInfo getUserInfo(String openid,String accessToken){
+        UserInfo result = null;
 
         Example example = new Example(UserInfo.class);
         example.createCriteria().andEqualTo("openid",openid);
         List<UserInfo> list = userInfoMapper.selectByExample(example);
+
         if (list == null || list.size() == 0 ){
 
             String s1 = getUserInfoUrl.replaceAll("OPENID", openid).replaceAll("ACCESS_TOKEN", accessToken);
@@ -139,9 +140,12 @@ public class WeixinUserServiceImpl implements WeixinUserService {
             String o = array.size()>0?(String) array.stream().reduce((p1, p2) -> p1.toString() + "," + p2.toString()).get():"[]";
             info.setPrivilege(o);
 
-            result = userInfoMapper.insertSelective(info);
+            Integer x = userInfoMapper.insertSelective(info);
+            if (x > 0 ){
+                result = info;
+            }
         }
-        return result;
+        return  result;
     }
 
     @Override

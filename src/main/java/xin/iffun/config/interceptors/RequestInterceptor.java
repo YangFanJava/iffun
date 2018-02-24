@@ -49,7 +49,7 @@ public class RequestInterceptor implements HandlerInterceptor{
 
 //     if (request.getRequestURI().contains())
 
-
+//
 // //      请求拦截  判断是否登陆
 //
 //        Cookie[] cookies = request.getCookies();
@@ -60,7 +60,8 @@ public class RequestInterceptor implements HandlerInterceptor{
 //                    UserAuthLog userLog = weixinUserService.isLogin(code);
 //                    if (userLog!=null){
 //                        //固定几个接口需要放置userInfo对象
-//                        if (request.getRequestURI().contains("/weixin/recyle/createOrder")){
+//                        if (request.getRequestURI().contains("/weixin/recyle/createOrder")
+//                                ||request.getRequestURI().contains("/weixin/user/index")){
 //                            UserInfo info = weixinUserService.selectUserInfoByOpenId(userLog.getOpenid());
 //                            request.setAttribute("userInfo",info);
 //                        }
@@ -72,10 +73,11 @@ public class RequestInterceptor implements HandlerInterceptor{
 //
 //        String code = request.getParameter("code");
 //        if (StringUtils.isNotBlank(code)){
-//            UserAuthLog log = weixinUserService.registerUser(code, null);
-//            if (log!=null){
-//                Cookie cookie = new Cookie("token",log.getCode());
+//            UserInfo userinfi = weixinUserService.registerUser(code, null);
+//            if (userinfi!=null){
+//                Cookie cookie = new Cookie("token",code);
 //                response.addCookie(cookie);
+//                request.setAttribute("userInfo",userinfi);
 //                return true;
 //            }
 //        }

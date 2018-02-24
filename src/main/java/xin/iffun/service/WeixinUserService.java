@@ -11,9 +11,9 @@ import xin.iffun.entity.UserInfo;
  * Time: 17:58
  */
 public interface WeixinUserService {
-    UserAuthLog registerUser(String code, String state);
+    UserInfo registerUser(String code, String state);
 
-    Integer getUserInfo(String openid,String accessToken);
+    UserInfo getUserInfo(String openid,String accessToken);
 
     UserAuthLog isLogin(String code);
 

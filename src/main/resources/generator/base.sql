@@ -68,3 +68,22 @@ CREATE TABLE `recyle_order` (
   `update_time` datetime DEFAULT NULL COMMENT '订单修改时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COMMENT='回收订单表';
+
+
+
+
+CREATE TABLE `order_comment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `user_id` int(11) NOT NULL COMMENT '用户id',
+  `user_name` varchar(100) NOT NULL COMMENT '用户名称',
+  `user_address` varchar(100) NOT NULL COMMENT '地区',
+  `pid` int(11) DEFAULT NULL COMMENT '商品id',
+  `product_name`  varchar(50) DEFAULT NULL COMMENT '商品名称',
+  `product_image` varchar(200) DEFAULT NULL COMMENT '商品图片',
+  `oid` int(11) DEFAULT NULL COMMENT '订单id',
+  `recyle_price` decimal(10,2) DEFAULT NULL COMMENT '成交金额',
+  `text` varchar(300) DEFAULT NULL COMMENT '评论正文',
+  `recyle_type` varchar(20) DEFAULT '0' COMMENT '回收方式',
+  `createtime` datetime DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COMMENT='用户评论表';
