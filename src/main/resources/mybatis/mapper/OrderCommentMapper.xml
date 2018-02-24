@@ -20,21 +20,4 @@
     <result column="is_show" jdbcType="CHAR" property="isShow" />
     <result column="sort" jdbcType="INTEGER" property="sort" />
   </resultMap>
-  <resultMap id="BaseResultMap" type="xin.iffun.entity.OrderComment">
-    <!--
-      WARNING - @mbg.generated
-    -->
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="user_name" jdbcType="VARCHAR" property="userName" />
-    <result column="user_address" jdbcType="VARCHAR" property="userAddress" />
-    <result column="pid" jdbcType="INTEGER" property="pid" />
-    <result column="product_name" jdbcType="VARCHAR" property="productName" />
-    <result column="product_image" jdbcType="VARCHAR" property="productImage" />
-    <result column="oid" jdbcType="INTEGER" property="oid" />
-    <result column="recyle_price" jdbcType="DECIMAL" property="recylePrice" />
-    <result column="text" jdbcType="VARCHAR" property="text" />
-    <result column="recyle_type" jdbcType="VARCHAR" property="recyleType" />
-    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
-  </resultMap>
 </mapper>
