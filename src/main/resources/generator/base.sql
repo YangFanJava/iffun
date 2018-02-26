@@ -15,6 +15,7 @@ CREATE TABLE `user_auth_log` (
 
 
 
+
 CREATE TABLE `user_info` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
   `openid` varchar(100) NOT NULL COMMENT '用户昵称',

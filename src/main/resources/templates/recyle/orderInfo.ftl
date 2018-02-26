@@ -25,8 +25,6 @@
 </header>
 
 
-<div class="aui-card-list"></div>
-
 
 <div class="aui-card-list">
     <ul class="aui-list aui-media-list" >
@@ -34,32 +32,124 @@
                 <div class="aui-media-list-item-inner">
                     <div class="aui-list-item-media" style="width: 3rem;">
                         <#if info.price.image?default("")?trim?length gt 1>
-                            <img src="${price.image}" >
+                            <img src="${info.price.image}"  style="margin: 10px 0px;" >
                         <#elseif info.product.iamges?default("")?trim?length gt 1>
                             <#list info.product.iamges?split(",") as name>
                                 <#if name_index == 0 >
-                                    <img src="${name}" >
+                                    <img src="${name}" style="margin: 10px 0px;" >
                                 </#if>
                             </#list>
                         <#else>
-                            <img src="${defaultImage}">
+                            <img src="${defaultImage}"  style="margin: 10px 0px;">
                         </#if>
                     </div>
-                    <div class="aui-list-item-inner aui-list-item-arrow">
+                    <div class="aui-list-item-inner">
                         <div class="aui-list-item-text">
                             <input name="priceId" hidden value="${info.price.id}" >
                             <div class="aui-list-item-title aui-font-size-14 aui-ellipsis-1 " style="width: 60%">${info.price.version}</div>
                             <#--<div class="aui-list-item-right">已回收100</div>-->
                         </div>
-                        <div class="aui-list-item-text">
-                            <div class="aui-list-item-text">订单状态:已创建未回收 </div>
-                            <div class="aui-list-item-text">创建时间: 2018-12-12 12-09-12 </div>
+                        <div class="aui-list-item-text">订单状态:
+                            <#switch info.recyleState>
+                                <#case "1">
+                                    订单提交，等待店家处理
+                                    <#break>
+                                <#case "5">
+                                    回收中
+                                    <#break>
+                                <#case "6">
+                                    回收结束,等待店家付款
+                                    <#break>
+                                <#case "7">
+                                    店家已打款,订单结束
+                                    <#break>
+                                <#default>
+
+                            </#switch>
                         </div>
+                        <div class="aui-list-item-text">创建时间: 2018-12-12 12-09-12 </div>
                     </div>
                 </div>
             </li>
     </ul>
 </div>
+
+
+<div class="aui-card-list">
+    <div class="aui-card-list-content ">
+        <ul class="aui-list aui-media-list" >
+            <li class="aui-list-item">
+                <div class="aui-media-list-item-inner">
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-text">订单号: 2018-12-12 12-09-12 </div>
+                        <div class="aui-list-item-text">回收类型:  </div>
+                        <div class="aui-list-item-text">预约时间: 2018-12-12 12-09-12 </div>
+                        <div class="aui-list-item-text">回收/预约地点: 山东省临沂市郯城县</div>
+                        <div class="aui-list-item-text">订单创建时间: 2018-12-12 12-09-12 </div>
+                        <div class="aui-list-item-text">最近更新时间: 2018-12-12 12-09-12 </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+<div class="aui-card-list">
+    <div class="aui-card-list-content ">
+        <ul class="aui-list aui-media-list" >
+            <li class="aui-list-item">
+                <div class="aui-media-list-item-inner">
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-text">联系人: 木道人。 </div>
+                        <div class="aui-list-item-text">联系方式: 13581995512 </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+
+    <div class="aui-card-list-footer aui-text-center" style="padding:0rem 0.75rem">
+            <i class="aui-iconfont aui-icon-question"></i>对信息有疑问,点此联系店家。
+    </div>
+
+</div>
+
+
+<div class="aui-card-list">
+    <div class="aui-card-list-content ">
+        <ul class="aui-list aui-media-list" >
+            <li class="aui-list-item">
+                <div class="aui-media-list-item-inner">
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-text">用户预约价格: 2999.oo  </div>
+                        <div class="aui-list-item-text">专家检测:是  </div>
+                        <div class="aui-list-item-text">专家预测价格:2800.oo  </div>
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                用户
+                <div class="aui-label aui-label-success">手机进水</div>&nbsp;
+                <div class="aui-label aui-label-success">手机进水</div>&nbsp;
+                <div class="aui-label aui-label-success">手机进水</div>&nbsp;
+                <div class="aui-label aui-label-success">手机进水</div>&nbsp;
+                <div class="aui-label aui-label-success">手机进水</div>&nbsp;
+                <div class="aui-label aui-label-success">手机进水</div>&nbsp;
+                <div class="aui-label aui-label-success">手机进水</div>&nbsp;
+            </li>
+            <li class="aui-list-item">
+                店家
+                <div class="aui-label aui-label-warning">未检测</div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+
+
 
 
 
