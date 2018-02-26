@@ -1,6 +1,7 @@
 package xin.iffun.service;
 
 import xin.iffun.entity.RecyleOrder;
+import xin.iffun.entity.vo.RecyleOrderVo;
 
 /**
  * Created with IntelliJ IDEA
@@ -10,4 +11,7 @@ import xin.iffun.entity.RecyleOrder;
  */
 public interface RecyleOrderService {
     Integer createRecyleOrder(RecyleOrder order);
+
+    RecyleOrderVo selectOrderList(Integer oid);
+
 }

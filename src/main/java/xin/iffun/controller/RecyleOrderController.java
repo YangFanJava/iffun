@@ -3,6 +3,13 @@ package xin.iffun.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import xin.iffun.entity.RecyleOrder;
+import xin.iffun.entity.UserInfo;
+import xin.iffun.entity.vo.RecyleOrderVo;
+import xin.iffun.service.RecyleOrderService;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created with IntelliJ IDEA
@@ -15,11 +22,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class RecyleOrderController {
 
 
+    @Resource
+    private RecyleOrderService recyleOrderService;
 
 
     @RequestMapping("/toList")
-    public String goOrderList(Model model) {
+    public String goOrderList(HttpServletRequest request,Model model) {
+        UserInfo info =(UserInfo) request.getAttribute("userInfo");
+        if (info != null && info.getId() != null){
+
+        }
         return "recyle/orderList";
+    }
+
+    @RequestMapping("/toInfo")
+    public String goOrderList(Integer oid,HttpServletRequest request,Model model) {
+//        UserInfo info =(UserInfo) request.getAttribute("userInfo");
+        RecyleOrderVo recyleOrder = recyleOrderService.selectOrderList(oid);
+        model.addAttribute("info",recyleOrder);
+        model.addAttribute("defaultImage","http://img11.360buyimg.com/n2/jfs/t12730/306/1517709913/155178/f5e7e927/5a22acfaNf7222715.jpg!q95.jpg");
+
+        return "recyle/orderInfo";
     }
 
 

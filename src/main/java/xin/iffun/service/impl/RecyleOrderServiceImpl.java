@@ -2,6 +2,7 @@ package xin.iffun.service.impl;
 
 import org.springframework.stereotype.Service;
 import xin.iffun.entity.RecyleOrder;
+import xin.iffun.entity.vo.RecyleOrderVo;
 import xin.iffun.mapper.RecyleOrderMapper;
 import xin.iffun.service.RecyleOrderService;
 
@@ -41,5 +42,10 @@ public class RecyleOrderServiceImpl implements RecyleOrderService {
         order.setPayState("0");
 
         return recyleOrderMapper.insertSelective(order);
+    }
+
+    @Override
+    public RecyleOrderVo selectOrderList(Integer oid) {
+        return recyleOrderMapper.selectOrderInfo(oid);
     }
 }

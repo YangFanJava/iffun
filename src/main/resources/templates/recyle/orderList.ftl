@@ -53,6 +53,9 @@
     </div>
     <div class="aui-card-list-footer" style="width: 100%">
         <div class="aui-list-item-right">
+            <p><div class="aui-btn">查看详情</div></p>
+        </div>
+        <div class="aui-list-item-right">
             <p><div class="aui-btn">联系客服</div></p>
         </div>
     </div>

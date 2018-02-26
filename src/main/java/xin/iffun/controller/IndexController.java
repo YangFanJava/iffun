@@ -78,10 +78,7 @@ public class IndexController {
         _log.info("code {}",code);
         List<ProductVo> hotPhoneRank = phoneService.selectHotList(0, 10);
 
-
         List<OrderComment> comments = commentService.selectShowComment(0,10);
-
-
 
         model.addAttribute("comments",comments);
         model.addAttribute("hot",hotPhoneRank);
@@ -89,8 +86,4 @@ public class IndexController {
 
         return "recyle/index";
     }
-
-
-
-
 }

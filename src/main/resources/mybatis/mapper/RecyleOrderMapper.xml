@@ -2,9 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="xin.iffun.mapper.RecyleOrderMapper">
   <resultMap id="BaseResultMap" type="xin.iffun.entity.RecyleOrder">
-    <!--
-      WARNING - @mbg.generated
-    -->
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="uid" jdbcType="INTEGER" property="uid" />
     <result column="price_id" jdbcType="INTEGER" property="priceId" />
@@ -27,4 +24,57 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
+
+
+  <resultMap id="BaseResultMap2" extends="BaseResultMap" type="xin.iffun.entity.vo.RecyleOrderVo">
+    <association  column="p1_id" property="product" javaType="xin.iffun.entity.Product" >
+      <id column="p1_id" property="id" jdbcType="INTEGER" />
+      <result column="name" property="name" jdbcType="VARCHAR" />
+      <result column="brand_id" property="brandId" jdbcType="INTEGER" />
+      <result column="category_id" property="categoryId" jdbcType="INTEGER" />
+      <result column="sell_point" property="sellPoint" jdbcType="VARCHAR" />
+      <result column="synopsis" property="synopsis" jdbcType="VARCHAR" />
+      <result column="keywords" property="keywords" jdbcType="VARCHAR" />
+      <result column="images" property="images" jdbcType="VARCHAR" />
+      <result column="p1_market_price" property="marketPrice" jdbcType="DECIMAL" />
+      <result column="sort" property="sort" jdbcType="INTEGER" />
+      <result column="is_hot" property="isHot" jdbcType="INTEGER" />
+      <result column="is_alive" property="isAlive" jdbcType="INTEGER" />
+      <result column="p1_create_time" property="createtime" jdbcType="TIMESTAMP" />
+    </association>
+    <association  column="p2_id" property="price" javaType="xin.iffun.entity.ProductPrice" >
+      <id column="p2_id" property="id" jdbcType="INTEGER" />
+      <result column="product_id" property="productId" jdbcType="INTEGER" />
+      <result column="version" property="version" jdbcType="VARCHAR" />
+      <result column="p2_market_price" property="marketPrice" jdbcType="DECIMAL" />
+      <result column="sale_price" property="salePrice" jdbcType="DECIMAL" />
+      <result column="recover_price" property="recoverPrice" jdbcType="DECIMAL" />
+      <result column="color" property="color" jdbcType="VARCHAR" />
+      <result column="image" property="image" jdbcType="VARCHAR" />
+      <result column="stock" property="stock" jdbcType="INTEGER" />
+      <result column="is_use" property="isUse" jdbcType="INTEGER" />
+      <result column="p2_create_time" property="createtime" jdbcType="TIMESTAMP" />
+    </association>
+  </resultMap>
+
+  <select id="selectOrderInfo" resultMap="BaseResultMap2" >
+      SELECT
+          *, p1.id p1_id,
+          p2.id p2_id,
+          p1.market_price p1_market_price,
+      p2.market_price p2_market_price,
+      p1.createtime p1_create_time,
+      p2.createtime p2_create_time
+      FROM
+          recyle_order r,
+          product_price p2,
+          product p1
+      WHERE
+          r.price_id = p2.id
+      AND p2.product_id = p1.id
+      AND r.id = #{oid}
+  </select>
+
+
+
 </mapper>
