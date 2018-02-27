@@ -131,6 +131,7 @@
             </li>
             <li class="aui-list-item">
                 用户
+                <#--<#list qas as >-->
                 <div class="aui-label aui-label-success">手机进水</div>&nbsp;
                 <div class="aui-label aui-label-success">手机进水</div>&nbsp;
                 <div class="aui-label aui-label-success">手机进水</div>&nbsp;
