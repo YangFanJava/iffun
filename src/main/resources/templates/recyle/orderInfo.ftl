@@ -67,7 +67,7 @@
 
                             </#switch>
                         </div>
-                        <div class="aui-list-item-text">创建时间: ${info.createTime?date}</div>
+                        <div class="aui-list-item-text">创建时间: 2018-12-12 12-09-12 </div>
                     </div>
                 </div>
             </li>
