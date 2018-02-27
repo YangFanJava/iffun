@@ -67,7 +67,7 @@
 
                             </#switch>
                         </div>
-                        <div class="aui-list-item-text">创建时间: 2018-12-12 12-09-12 </div>
+                        <div class="aui-list-item-text">创建时间: ${info.createTime?date}</div>
                     </div>
                 </div>
             </li>
@@ -81,12 +81,21 @@
             <li class="aui-list-item">
                 <div class="aui-media-list-item-inner">
                     <div class="aui-list-item-inner">
-                        <div class="aui-list-item-text">订单号: 2018-12-12 12-09-12 </div>
-                        <div class="aui-list-item-text">回收类型:  </div>
-                        <div class="aui-list-item-text">预约时间: 2018-12-12 12-09-12 </div>
-                        <div class="aui-list-item-text">回收/预约地点: 山东省临沂市郯城县</div>
-                        <div class="aui-list-item-text">订单创建时间: 2018-12-12 12-09-12 </div>
-                        <div class="aui-list-item-text">最近更新时间: 2018-12-12 12-09-12 </div>
+                        <div class="aui-list-item-text">订单号: ${info.id} </div>
+                        <div class="aui-list-item-text">回收类型:${info.price.version}  </div>
+                        <div class="aui-list-item-text">预约时间: ${info.appointmentTime?date} </div>
+                        <div class="aui-list-item-text">回收/预约地点:
+                            <#if info.recyleType == '0'>
+                                ${appointmentAddress}
+                            <#elseif info.recyleType =='1'>
+                                店铺回收 （查看地址）
+                            <#elseif info.recyleType =='2'>
+                                快递回收 （查看地址）
+                            </#if>
+
+                        </div>
+                        <div class="aui-list-item-text">订单创建时间: ${info.createTime?date} </div>
+                        <div class="aui-list-item-text">最近更新时间: ${info.updateTime?date} </div>
                     </div>
                 </div>
             </li>
@@ -101,8 +110,8 @@
             <li class="aui-list-item">
                 <div class="aui-media-list-item-inner">
                     <div class="aui-list-item-inner">
-                        <div class="aui-list-item-text">联系人: 木道人。 </div>
-                        <div class="aui-list-item-text">联系方式: 13581995512 </div>
+                        <div class="aui-list-item-text">联系人: ${info.userName} </div>
+                        <div class="aui-list-item-text">联系方式: ${info.userPhone} </div>
                     </div>
                 </div>
             </li>
@@ -123,25 +132,33 @@
             <li class="aui-list-item">
                 <div class="aui-media-list-item-inner">
                     <div class="aui-list-item-inner">
-                        <div class="aui-list-item-text">用户预约价格: 2999.oo  </div>
-                        <div class="aui-list-item-text">专家检测:是  </div>
-                        <div class="aui-list-item-text">专家预测价格:2800.oo  </div>
+                        <div class="aui-list-item-text">用户预约价格: ${info.estimatePriceUser}  </div>
+                        <#if info.isAuditing=='0' >
+                            <div class="aui-list-item-text">专家检测:未检测</div>
+                            <div class="aui-list-item-text">专家预测价格:未检测 </div>
+                        <#else >
+                            <div class="aui-list-item-text">专家检测:已检测</div>
+                            <div class="aui-list-item-text">专家预测价格:${info.auditingPrice} </div>
+                        </#if>
+
                     </div>
                 </div>
             </li>
             <li class="aui-list-item">
                 用户
-                <div class="aui-label aui-label-success">手机进水</div>&nbsp;
-                <div class="aui-label aui-label-success">手机进水</div>&nbsp;
-                <div class="aui-label aui-label-success">手机进水</div>&nbsp;
-                <div class="aui-label aui-label-success">手机进水</div>&nbsp;
-                <div class="aui-label aui-label-success">手机进水</div>&nbsp;
-                <div class="aui-label aui-label-success">手机进水</div>&nbsp;
-                <div class="aui-label aui-label-success">手机进水</div>&nbsp;
+                <#list info.qaUser?split(",") as userQa >
+                    <div class="aui-label aui-label-success">${answers[userQa].answerInfo}</div>&nbsp;
+                </#list>
             </li>
             <li class="aui-list-item">
                 店家
-                <div class="aui-label aui-label-warning">未检测</div>
+                <#if info.isAuditing == '1'>
+                    <#list info.qaBusiness?split(",") as businesssQa>
+                        <div class="aui-label aui-label-warning">${answers[businesssQa].answerInfo}</div>&nbsp;
+                    </#list>
+                <#else>
+                    <div class="aui-label aui-label-warning">未检测</div>
+                </#if>
             </li>
         </ul>
     </div>
