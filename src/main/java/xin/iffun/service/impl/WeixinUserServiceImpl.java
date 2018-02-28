@@ -144,6 +144,10 @@ public class WeixinUserServiceImpl implements WeixinUserService {
             if (x > 0 ){
                 result = info;
             }
+        }else{
+            if (list!=null&&list.size()>0){
+                result = list.get(0);
+            }
         }
         return  result;
     }

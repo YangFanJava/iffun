@@ -5,6 +5,11 @@ import xin.iffun.entity.RecyleOrder;
 import xin.iffun.entity.vo.RecyleOrderVo;
 import xin.iffun.util.CommonMapper;
 
+import java.util.List;
+import java.util.Map;
+
 public interface RecyleOrderMapper extends CommonMapper<RecyleOrder> {
-    RecyleOrderVo selectOrderInfo(@Param("oid") Integer oid);
+    List<RecyleOrderVo> selectOrderInfo(@Param("oid") Integer oid, @Param("uid") Integer uid);
+
+    List<Map<String,Object>> selectCountDataByUId(@Param("uid") Integer uid);
 }

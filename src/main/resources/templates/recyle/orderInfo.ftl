@@ -12,7 +12,7 @@
 </head>
 <body  >
 <header class="aui-bar aui-bar-nav" style="background-color: white;color: #008B8B">
-    <a class="aui-pull-left aui-btn" style="color: #008B8B;" href="/weixin/recyle/estimat">
+    <a class="aui-pull-left aui-btn" style="color: #008B8B;" href="/weixin/order/toList">
         <span class="aui-iconfont aui-icon-left"  style="color: #008B8B;"></span>&nbsp;
 <#--<header class="aui-bar aui-bar-nav" style="background-color: white;color: black">-->
     <#--<a class="aui-pull-left aui-btn" style="color: black;" href="javascript:location.reload();">-->
@@ -67,7 +67,7 @@
 
                             </#switch>
                         </div>
-                        <div class="aui-list-item-text">创建时间: 2018-12-12 12-09-12 </div>
+                        <div class="aui-list-item-text">创建时间:${info.createTime?date} </div>
                     </div>
                 </div>
             </li>
@@ -82,7 +82,15 @@
                 <div class="aui-media-list-item-inner">
                     <div class="aui-list-item-inner">
                         <div class="aui-list-item-text">订单号: ${info.id} </div>
-                        <div class="aui-list-item-text">回收类型:${info.price.version}  </div>
+                        <div class="aui-list-item-text">回收类型:
+                            <#if info.recyleType == "0">
+                                店铺回收
+                            <#elseif info.recyleType =="1">
+                                快递回收
+                            <#elseif info.recyleType == "2">
+                                上门回收
+                            </#if>
+                        </div>
                         <div class="aui-list-item-text">预约时间: ${info.appointmentTime?date} </div>
                         <div class="aui-list-item-text">回收/预约地点:
                             <#if info.recyleType == '0'>

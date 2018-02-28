@@ -107,6 +107,7 @@
                         <li class="aui-list-item aui-list-item-middle">
                             <div class="aui-media-list-item-inner">
                                 <div class="aui-list-item-media" style="width: 3rem;">
+                                    <input name="priceId" hidden value="${price.id}" >
                                     <#if price.image?default("")?trim?length gt 1>
                                         <img src="${price.image}" >
                                     <#elseif hotPhone.iamges?default("")?trim?length gt 1>

@@ -19,6 +19,7 @@ import xin.iffun.util.R;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -147,6 +148,17 @@ public class EstimateController {
             return R.error();
         }
         order.setUid(info.getId());
+
+        order.setUserName(userName);
+        order.setUserName(userPhone);
+
+
+
+        order.setPriceId(Integer.parseInt(priceId));
+        order.setRecyleType(recyleType);
+        order.setQaUser(qaUser);
+        order.setIsAuditing("0");
+        order.setEstimatePriceUser(BigDecimal.valueOf(Double.parseDouble(estimatePriceUser)));
 
         Integer i = recyleOrderService.createRecyleOrder(order);
         return R.ok(i+"");

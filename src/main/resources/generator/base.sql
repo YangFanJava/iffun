@@ -65,6 +65,7 @@ CREATE TABLE `recyle_order` (
   `user_phone` varchar(30) DEFAULT NULL COMMENT '用户联系方式',
   `express_code` varchar(100) DEFAULT NULL COMMENT '快递单号',
   `appointment_time` datetime DEFAULT NULL COMMENT '预约时间',
+  `appointment_address` varchar(400) DEFAULT NULL COMMENT '预约地点',
   `create_time` datetime DEFAULT NULL COMMENT '订单创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '订单修改时间',
   PRIMARY KEY (`id`)

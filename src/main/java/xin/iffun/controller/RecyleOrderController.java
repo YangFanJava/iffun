@@ -42,7 +42,8 @@ public class RecyleOrderController {
     public String goOrderList(HttpServletRequest request,Model model) {
         UserInfo info =(UserInfo) request.getAttribute("userInfo");
         if (info != null && info.getId() != null){
-
+            List<RecyleOrderVo>  orders = recyleOrderService.selectOrderListByUid(info.getId());
+            model.addAttribute("orders",orders);
         }
         return "recyle/orderList";
     }

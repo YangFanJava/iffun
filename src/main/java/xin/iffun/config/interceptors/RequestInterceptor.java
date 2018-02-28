@@ -45,48 +45,52 @@ public class RequestInterceptor implements HandlerInterceptor{
         long startTime = System.currentTimeMillis();
         request.setAttribute("startTime", startTime);
 
-        return  true;
+//        UserInfo info = weixinUserService.selectUserInfoByOpenId("ouh3f1JEUBUPQoNaaoiYIwpIim7E");
+//        request.setAttribute("userInfo",info);
+//
+//        return  true;
 
 //     if (request.getRequestURI().contains())
 
 //
-// //      请求拦截  判断是否登陆
-//
-//        Cookie[] cookies = request.getCookies();
-//        if (cookies != null && cookies.length > 0){
-//            for (Cookie cookie:cookies) {
-//                if("token".equals(cookie.getName())){
-//                    String code = cookie.getValue();
-//                    UserAuthLog userLog = weixinUserService.isLogin(code);
-//                    if (userLog!=null){
-//                        //固定几个接口需要放置userInfo对象
-//                        if (request.getRequestURI().contains("/weixin/recyle/createOrder")
-//                                ||request.getRequestURI().contains("/weixin/user/index")){
-//                            UserInfo info = weixinUserService.selectUserInfoByOpenId(userLog.getOpenid());
-//                            request.setAttribute("userInfo",info);
-//                        }
-//                        return true;
-//                    }
-//                }
-//            }
-//        }
-//
-//        String code = request.getParameter("code");
-//        if (StringUtils.isNotBlank(code)){
-//            UserInfo userinfi = weixinUserService.registerUser(code, null);
-//            if (userinfi!=null){
-//                Cookie cookie = new Cookie("token",code);
-//                response.addCookie(cookie);
-//                request.setAttribute("userInfo",userinfi);
-//                return true;
-//            }
-//        }
-//
-//        response.setContentType("text/xml; charset=utf-8");
-//        response.setCharacterEncoding("utf-8");
-//        response.setStatus(200);
-//        response.getWriter().write("No permission error　！！");
-//        return false;
+ //      请求拦截  判断是否登陆
+
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null && cookies.length > 0){
+            for (Cookie cookie:cookies) {
+                if("token".equals(cookie.getName())){
+                    String code = cookie.getValue();
+                    UserAuthLog userLog = weixinUserService.isLogin(code);
+                    if (userLog!=null){
+                        //固定几个接口需要放置userInfo对象
+                        if (request.getRequestURI().contains("/weixin/recyle/createOrder")
+                                ||request.getRequestURI().contains("/weixin/user/index")
+                                ||request.getRequestURI().contains("/weixin/order/toList")){
+                            UserInfo info = weixinUserService.selectUserInfoByOpenId(userLog.getOpenid());
+                            request.setAttribute("userInfo",info);
+                        }
+                        return true;
+                    }
+                }
+            }
+        }
+
+        String code = request.getParameter("code");
+        if (StringUtils.isNotBlank(code)){
+            UserInfo userinfi = weixinUserService.registerUser(code, null);
+            if (userinfi!=null){
+                Cookie cookie = new Cookie("token",code);
+                response.addCookie(cookie);
+                request.setAttribute("userInfo",userinfi);
+                return true;
+            }
+        }
+
+        response.setContentType("text/xml; charset=utf-8");
+        response.setCharacterEncoding("utf-8");
+        response.setStatus(200);
+        response.getWriter().write("No permission error　！！");
+        return false;
     }
 
     /**

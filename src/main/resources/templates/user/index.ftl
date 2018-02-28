@@ -42,23 +42,24 @@
     margin: 0rem auto;
     font-size: 0.9rem;
     color: #2F4056;
-">木道人</div>
+">${info.nickname}</div>
     <div style="
     color: #c2c2c2;
     margin: 0.3rem auto 0.5rem;
     font-size: 0.7rem;
-">山东 &nbsp; 临沂</div>
+">${info.province???string(info.province,"北京")} &nbsp; ${info.city???string(info.city,"北京")}</div>
 </div>
 <section class="aui-grid aui-margin-b-15">
     <div class="aui-row">
-        <div class="aui-col-xs-6">
-            <div class="aui-badge">0</div>
+
+        <div class="aui-col-xs-6" id="toOrderList" >
+            <div class="aui-badge">${orderCountData.sum-orderCountData.count}</div>
             <i class="aui-iconfont aui-icon-cart"></i>
             <div class="aui-grid-label"><div style="
     font-size: 0.8rem;
-">已回收xx台</div><div style="
+">已回收${orderCountData.count}台</div><div style="
     font-size: 0.6rem;
-">赚到了988878.00元</div></div>
+">赚到了${orderCountData.sumPrice}元</div></div>
         </div>
         <div class="aui-col-xs-6">
             <i class="aui-iconfont aui-icon-share"></i>
@@ -76,7 +77,7 @@
 <div class="aui-content aui-margin-b-15">
     <ul class="aui-list aui-list-in">
         <li class="aui-list-header">不知道写什么</li>
-        <li class="aui-list-item  aui-list-item-arrow">
+        <li class="aui-list-item  aui-list-item-arrow" id="toOrderList2" >
             <div class="aui-list-item-label-icon">
                 <i class="aui-iconfont aui-icon-mobile"></i>
             </div>
@@ -122,6 +123,26 @@
 <!-- 引入 JS -->
 <script src="/js/jquery.min.js"></script>
 <script type="text/javascript" src="/js/date/mobiscroll.custom-2.17.0.min.js"></script>
+
+
+<script id="">
+    $(function(){
+        $("#toOrderList2").click(function(){
+            location.href =  "/weixin/order/toList";
+        })
+        $("#toOrderList").click(function(){
+            location.href =  "/weixin/order/toList";
+        })
+    })
+
+    function submitOrder() {
+        location.href = "/weixin/index";
+    }
+
+</script>
+
+
+
 
 </body>
 </html>

@@ -5,10 +5,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import xin.iffun.entity.RecyleOrder;
 import xin.iffun.entity.UserInfo;
+import xin.iffun.entity.vo.RecyleOrderVo;
 import xin.iffun.service.RecyleOrderService;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA
@@ -33,6 +36,9 @@ public class UserController {
 
 //        recyleOrderService.selectOrderByUid(info.getId());
         model.addAttribute("info",info);
+
+        List<Map<String,Object>> orderCountData = recyleOrderService.selectCountDataByUId(info.getId());
+        model.addAttribute("orderCountData",orderCountData!=null && orderCountData.size()>0 ? orderCountData.get(0):null);
 
         return "user/index";
     }

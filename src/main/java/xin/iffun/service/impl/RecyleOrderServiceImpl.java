@@ -8,6 +8,8 @@ import xin.iffun.service.RecyleOrderService;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA
@@ -46,6 +48,19 @@ public class RecyleOrderServiceImpl implements RecyleOrderService {
 
     @Override
     public RecyleOrderVo selectOrderList(Integer oid) {
-        return recyleOrderMapper.selectOrderInfo(oid);
+        List<RecyleOrderVo> vos = recyleOrderMapper.selectOrderInfo(oid, null);
+        return vos!=null && vos.size()>0 ?vos.get(0):null;
+    }
+
+    @Override
+    public List<RecyleOrderVo> selectOrderListByUid(Integer uid) {
+        return recyleOrderMapper.selectOrderInfo(null,uid);
+    }
+
+    @Override
+    public List<Map<String, Object>> selectCountDataByUId(Integer uid) {
+
+
+        return recyleOrderMapper.selectCountDataByUId(uid);
     }
 }

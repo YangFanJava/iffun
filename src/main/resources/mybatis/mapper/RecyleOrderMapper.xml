@@ -72,8 +72,21 @@
       WHERE
           r.price_id = p2.id
       AND p2.product_id = p1.id
-      AND r.id = #{oid}
+      <if test="oid!= null and oid != ''">
+          AND r.id = #{oid}
+      </if>
+      <if test="uid!= null and uid != ''">
+          AND r.uid = #{uid}
+      </if>
+      ORDER  BY r.update_time DESC ;
   </select>
+
+    <select id="selectCountDataByUId" resultType="java.util.HashMap">
+         select count(1) count,IFNULL(sum(auditing_price),0) sumPrice,(select count(1)  FROM recyle_order where uid =  #{uid} ) sum
+         FROM recyle_order where
+         uid = #{uid}  AND recyle_state = '7'
+    </select>
+
 
 
 

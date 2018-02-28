@@ -495,6 +495,8 @@
                     title:"保存成功",
                     msg:"订单创建成功，请保持通话畅通，我们的工作人员会很快联系您！",
                     buttons:['确定']
+                },function(ret){
+                    location.href = "/weixin/order/toList";
                 })
             }
         },"json")
@@ -515,7 +517,6 @@
 
     $(function () {
         $("#activeBtn").click();
-        console.info("测试");
 
 //
 //        $('#date').mobiscroll().date({

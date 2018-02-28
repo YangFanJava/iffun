@@ -3,6 +3,9 @@ package xin.iffun.service;
 import xin.iffun.entity.RecyleOrder;
 import xin.iffun.entity.vo.RecyleOrderVo;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created with IntelliJ IDEA
  * Created By YangF
@@ -14,4 +17,7 @@ public interface RecyleOrderService {
 
     RecyleOrderVo selectOrderList(Integer oid);
 
+    List<RecyleOrderVo> selectOrderListByUid(Integer uid);
+
+    List<Map<String,Object>> selectCountDataByUId(Integer id);
 }
