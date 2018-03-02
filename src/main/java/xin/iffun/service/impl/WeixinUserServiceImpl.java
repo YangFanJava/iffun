@@ -176,7 +176,7 @@ public class WeixinUserServiceImpl implements WeixinUserService {
         List<UserInfo> userInfos = null;
         if (StringUtils.isNotBlank(openid)){
             Example example = new Example(UserInfo.class);
-            example.createCriteria().andEqualTo(openid);
+            example.createCriteria().andEqualTo("openid",openid);
             userInfos = userInfoMapper.selectByExample(example);
         }
         return userInfos!=null && userInfos.size()>0?userInfos.get(0):null;

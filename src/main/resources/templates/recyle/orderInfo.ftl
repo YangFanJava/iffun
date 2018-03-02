@@ -17,7 +17,6 @@
 <#--<header class="aui-bar aui-bar-nav" style="background-color: white;color: black">-->
     <#--<a class="aui-pull-left aui-btn" style="color: black;" href="javascript:location.reload();">-->
         <#--<span class="aui-iconfont aui-icon-left"  style="color: black;"></span>&nbsp;-->
-
         <div class="aui-list-item-title aui-font-size-14 aui-ellipsis-1">
             诚信回收-订单详情
         </div>
@@ -28,49 +27,49 @@
 
 <div class="aui-card-list">
     <ul class="aui-list aui-media-list" >
-            <li class="aui-list-item">
-                <div class="aui-media-list-item-inner">
-                    <div class="aui-list-item-media" style="width: 3rem;">
-                        <#if info.price.image?default("")?trim?length gt 1>
-                            <img src="${info.price.image}"  style="margin: 10px 0px;" >
-                        <#elseif info.product.iamges?default("")?trim?length gt 1>
-                            <#list info.product.iamges?split(",") as name>
-                                <#if name_index == 0 >
-                                    <img src="${name}" style="margin: 10px 0px;" >
-                                </#if>
-                            </#list>
-                        <#else>
-                            <img src="${defaultImage}"  style="margin: 10px 0px;">
-                        </#if>
-                    </div>
-                    <div class="aui-list-item-inner">
-                        <div class="aui-list-item-text">
-                            <input name="priceId" hidden value="${info.price.id}" >
-                            <div class="aui-list-item-title aui-font-size-14 aui-ellipsis-1 " style="width: 60%">${info.price.version}</div>
-                            <#--<div class="aui-list-item-right">已回收100</div>-->
-                        </div>
-                        <div class="aui-list-item-text">订单状态:
-                            <#switch info.recyleState>
-                                <#case "1">
-                                    订单提交，等待店家处理
-                                    <#break>
-                                <#case "5">
-                                    回收中
-                                    <#break>
-                                <#case "6">
-                                    回收结束,等待店家付款
-                                    <#break>
-                                <#case "7">
-                                    店家已打款,订单结束
-                                    <#break>
-                                <#default>
-
-                            </#switch>
-                        </div>
-                        <div class="aui-list-item-text">创建时间:${info.createTime?date} </div>
-                    </div>
+        <li class="aui-list-item">
+            <div class="aui-media-list-item-inner">
+                <div class="aui-list-item-media" style="width: 3rem;">
+                    <#if info.price.image?default("")?trim?length gt 1>
+                        <img src="${info.price.image}"  style="margin: 10px 0px;" >
+                    <#elseif info.product.iamges?default("")?trim?length gt 1>
+                        <#list info.product.iamges?split(",") as name>
+                            <#if name_index == 0 >
+                                <img src="${name}" style="margin: 10px 0px;" >
+                            </#if>
+                        </#list>
+                    <#else>
+                        <img src="${defaultImage}"  style="margin: 10px 0px;">
+                    </#if>
                 </div>
-            </li>
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-text">
+                        <input name="priceId" hidden value="${info.price.id}" >
+                        <div class="aui-list-item-title aui-font-size-14 aui-ellipsis-1 " style="width: 60%">${info.price.version}</div>
+                        <#--<div class="aui-list-item-right">已回收100</div>-->
+                    </div>
+                    <div class="aui-list-item-text">订单状态:
+                        <#switch info.recyleState>
+                            <#case "1">
+                                订单提交，等待店家处理
+                                <#break>
+                            <#case "5">
+                                回收中
+                                <#break>
+                            <#case "6">
+                                回收结束,等待店家付款
+                                <#break>
+                            <#case "7">
+                                店家已打款,订单结束
+                                <#break>
+                            <#default>
+
+                        </#switch>
+                    </div>
+                    <div class="aui-list-item-text">创建时间:${info.createTime?date} </div>
+                </div>
+            </div>
+        </li>
     </ul>
 </div>
 
@@ -94,13 +93,12 @@
                         <div class="aui-list-item-text">预约时间: ${info.appointmentTime?date} </div>
                         <div class="aui-list-item-text">回收/预约地点:
                             <#if info.recyleType == '0'>
-                                ${appointmentAddress}
+                                ${info.appointmentAddress}
                             <#elseif info.recyleType =='1'>
                                 店铺回收 （查看地址）
                             <#elseif info.recyleType =='2'>
                                 快递回收 （查看地址）
                             </#if>
-
                         </div>
                         <div class="aui-list-item-text">订单创建时间: ${info.createTime?date} </div>
                         <div class="aui-list-item-text">最近更新时间: ${info.updateTime?date} </div>

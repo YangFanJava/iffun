@@ -150,7 +150,7 @@ public class EstimateController {
         order.setUid(info.getId());
 
         order.setUserName(userName);
-        order.setUserName(userPhone);
+        order.setUserPhone(userPhone);
 
 
 

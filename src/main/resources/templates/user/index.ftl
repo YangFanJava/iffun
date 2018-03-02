@@ -34,7 +34,7 @@
     width: 5rem;
     margin: 0.3rem auto 0.4rem;
 ">
-        <img src="http://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJmSEccyuUB9DxNMia4U8C7QQia8ebl6Qt3tXj6ibWMf4hWrJYhkKkVHBNHhpq453QQRJ0B4mtmMHOKQ/132" class="aui-img-round" style="
+        <img src="${info.headimgurl}" class="aui-img-round" style="
 ">
     </div>
 
