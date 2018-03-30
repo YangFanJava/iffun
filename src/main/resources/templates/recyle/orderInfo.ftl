@@ -90,7 +90,9 @@
                                 上门回收
                             </#if>
                         </div>
-                        <div class="aui-list-item-text">预约时间: ${info.appointmentTime?date} </div>
+                        <#if info.recyleType == "1">
+                            <div class="aui-list-item-text">预约时间:  ${info.appointmentTime?date} </div>
+                        </#if >
                         <div class="aui-list-item-text">回收/预约地点:
                             <#if info.recyleType == '0'>
                                 ${info.appointmentAddress}

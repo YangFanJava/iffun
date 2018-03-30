@@ -422,7 +422,7 @@
         var param = {
             "priceId":"${priceId}",
             "qaUser":"${qaIds}",
-            "estimatePriceUser":"${estimatePrice}"
+            "estimatePriceUser":"${estimatePrice?c}"
         };
 
         var dangeText = "";
